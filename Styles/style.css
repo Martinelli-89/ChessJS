@@ -1,0 +1,228 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: 100vw;
+  height: 100vw;
+  display: grid;
+  grid-template-areas: "a8 b8 c8 d8 e8 f8 g8 h8" "a7 b7 c7 d7 e7 f7 g7 h7" "a6 b6 c6 d6 e6 f6 g6 h6" "a5 b5 c5 d5 e5 f5 g5 h5" "a4 b4 c4 d4 e4 f4 g4 h4" "a3 b3 c3 d3 e3 f3 g3 h3" "a2 b2 c2 d2 e2 f2 g2 h2" "a1 b1 c1 d1 e1 f1 g1 h1";
+}
+.board .white {
+  background-color: white;
+  border: 1px solid black;
+  min-width: 12.5vw;
+  min-height: 12.5vw;
+}
+.board .black {
+  background-color: rgb(228, 81, 81);
+  border: 1px solid black;
+  min-width: 12.5vw;
+  min-height: 12.5vw;
+}
+.board #a8 {
+  grid-area: a8;
+}
+.board #b8 {
+  grid-area: b8;
+}
+.board #c8 {
+  grid-area: c8;
+}
+.board #d8 {
+  grid-area: d8;
+}
+.board #e8 {
+  grid-area: e8;
+}
+.board #f8 {
+  grid-area: f8;
+}
+.board #g8 {
+  grid-area: g8;
+}
+.board #h8 {
+  grid-area: h8;
+}
+.board #a7 {
+  grid-area: a7;
+}
+.board #b7 {
+  grid-area: b7;
+}
+.board #c7 {
+  grid-area: c7;
+}
+.board #d7 {
+  grid-area: d7;
+}
+.board #e7 {
+  grid-area: e7;
+}
+.board #f7 {
+  grid-area: f7;
+}
+.board #g7 {
+  grid-area: g7;
+}
+.board #h7 {
+  grid-area: h7;
+}
+.board #a6 {
+  grid-area: a6;
+}
+.board #b6 {
+  grid-area: b6;
+}
+.board #c6 {
+  grid-area: c6;
+}
+.board #d6 {
+  grid-area: d6;
+}
+.board #e6 {
+  grid-area: e6;
+}
+.board #f6 {
+  grid-area: f6;
+}
+.board #g6 {
+  grid-area: g6;
+}
+.board #h6 {
+  grid-area: h6;
+}
+.board #a5 {
+  grid-area: a5;
+}
+.board #b5 {
+  grid-area: b5;
+}
+.board #c5 {
+  grid-area: c5;
+}
+.board #d5 {
+  grid-area: d5;
+}
+.board #e5 {
+  grid-area: e5;
+}
+.board #f5 {
+  grid-area: f5;
+}
+.board #g5 {
+  grid-area: g5;
+}
+.board #h5 {
+  grid-area: h5;
+}
+.board #a4 {
+  grid-area: a4;
+}
+.board #b4 {
+  grid-area: b4;
+}
+.board #c4 {
+  grid-area: c4;
+}
+.board #d4 {
+  grid-area: d4;
+}
+.board #e4 {
+  grid-area: e4;
+}
+.board #f4 {
+  grid-area: f4;
+}
+.board #g4 {
+  grid-area: g4;
+}
+.board #h4 {
+  grid-area: h4;
+}
+.board #a3 {
+  grid-area: a3;
+}
+.board #b3 {
+  grid-area: b3;
+}
+.board #c3 {
+  grid-area: c3;
+}
+.board #d3 {
+  grid-area: d3;
+}
+.board #e3 {
+  grid-area: e3;
+}
+.board #f3 {
+  grid-area: f3;
+}
+.board #g3 {
+  grid-area: g3;
+}
+.board #h3 {
+  grid-area: h3;
+}
+.board #a2 {
+  grid-area: a2;
+}
+.board #b2 {
+  grid-area: b2;
+}
+.board #c2 {
+  grid-area: c2;
+}
+.board #d2 {
+  grid-area: d2;
+}
+.board #e2 {
+  grid-area: e2;
+}
+.board #f2 {
+  grid-area: f2;
+}
+.board #g2 {
+  grid-area: g2;
+}
+.board #h2 {
+  grid-area: h2;
+}
+.board #a1 {
+  grid-area: a1;
+}
+.board #b1 {
+  grid-area: b1;
+}
+.board #c1 {
+  grid-area: c1;
+}
+.board #d1 {
+  grid-area: d1;
+}
+.board #e1 {
+  grid-area: e1;
+}
+.board #f1 {
+  grid-area: f1;
+}
+.board #g1 {
+  grid-area: g1;
+}
+.board #h1 {
+  grid-area: h1;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.piece {
+  max-width: 100%;
+  max-height: 100%;
+}/*# sourceMappingURL=style.css.map */
