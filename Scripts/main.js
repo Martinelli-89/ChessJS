@@ -41,9 +41,9 @@ const board = {
         source: "../Resources/WhiteRock.svg"
     },
     a2 : { 
-        piece: "pawn",
+        piece: "queen",
         color: "white",
-        source: "../Resources/WhitePawn.svg"
+        source: "../Resources/WhiteQueen.svg"
     },
     b2 : { 
         piece: "pawn",
@@ -404,6 +404,27 @@ const knight = (currentPositionXY) => {
         return regularMoves;
 }
 
+const king = (currentPositionXY) => {
+    
+    const moves = [[currentPositionXY[0], currentPositionXY[1]+1],[currentPositionXY[0]+1, currentPositionXY[1]+1],[currentPositionXY[0]+1, currentPositionXY[1]],[currentPositionXY[0]+1, currentPositionXY[1]-1],[currentPositionXY[0], currentPositionXY[1]-1],[currentPositionXY[0]-1, currentPositionXY[1]-1],[currentPositionXY[0]-1, currentPositionXY[1]],[currentPositionXY[0]-1, currentPositionXY[1]+1]]
+
+    const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]>0 && move[1] <9) );
+    return regularMoves;
+}
+
+const moveKing = (currentPosition, pawnColor) => {
+    
+    const possibleMoves = [];
+    const XYposition = convertToXY(currentPosition); 
+
+    const ruleSetMoves = king(XYposition);
+    const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
+    
+    const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
+
+    return allowedMoves;
+}
+
 const moveKnight = (currentPosition, pawnColor) => {
     
     const possibleMoves = [];
@@ -415,6 +436,175 @@ const moveKnight = (currentPosition, pawnColor) => {
     const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
 
     return allowedMoves;
+}
+
+const moveBishop = (currentPosition, pieceColor) => {
+    
+    const possibleMoves = [];
+    const XYposition = convertToXY(currentPosition); 
+
+    //Moves for North east diagonal
+    for( let i=1; i < 8; i++) {
+        const X = XYposition[0]+i;
+        const Y = XYposition[1]+i;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //Moves for South east diagonal
+    for( let i=1; i < 8; i++) {
+        const X = XYposition[0]+i;
+        const Y = (XYposition[1]-i)*-1;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //Moves for South west diagonal
+    for( let i=1; i < 8; i++) {
+        const X = (XYposition[0]-i)*-1;
+        const Y = (XYposition[1]-i)*-1;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //Moves for North west diagonal
+    for( let i=1; i < 8; i++) {
+        const X = (XYposition[0]-i)*-1;
+        const Y = (XYposition[1]+i)*-1;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    return possibleMoves;
+}
+
+const moveRock = (currentPosition, pieceColor) => {
+    
+    const possibleMoves = [];
+    const XYposition = convertToXY(currentPosition); 
+
+    //North moves
+    for( let i=1; i < 8; i++) {
+        const X = XYposition[0];
+        const Y = XYposition[1]+i;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //East moves
+    for( let i=1; i < 8; i++) {
+        const X = XYposition[0]+i;
+        const Y = (XYposition[1]);
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //South moves
+    for( let i=1; i < 8; i++) {
+        const X = XYposition[0];
+        const Y = (XYposition[1]-i)*-1;
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    //West moves
+    for( let i=1; i < 8; i++) {
+        const X = (XYposition[0]-i)*-1;
+        const Y = XYposition[1];
+        if( X > 8 || Y > 8 || X < 1 || Y < 1) {
+            break;
+        }
+        const boardPosition = convertXYtoBoardCoordinates([X,Y]);
+        if (board[boardPosition].color == pieceColor) {
+            break;
+        } else if (board[boardPosition].color == ""){
+            possibleMoves.push(boardPosition);
+        } else {
+            possibleMoves.push(boardPosition);
+            break;
+        }
+    }
+
+    return possibleMoves;
+}
+
+const moveQueen = (currentPosition, pieceColor) => {
+    
+    let moves = moveBishop(currentPosition, pieceColor);
+    let moves2 = moveRock(currentPosition, pieceColor);
+
+    return moves.concat(moves2);
+
 }
 
 const renderMoves = (possibleMoves) => {
@@ -457,6 +647,18 @@ const pieceClicled = (event) => {
             break;
         case("knight"): 
             moves = moveKnight(currentPosition, pieceColor);
+            break;
+        case("king"): 
+            moves = moveKnight(currentPosition, pieceColor);
+            break;
+        case("bishop"): 
+            moves = moveBishop(currentPosition, pieceColor);
+            break;
+        case("rock"): 
+            moves = moveRock(currentPosition, pieceColor);
+            break;
+        case("queen"): 
+            moves = moveQueen(currentPosition, pieceColor);
             break;
     }
     
