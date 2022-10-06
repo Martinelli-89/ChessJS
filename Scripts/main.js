@@ -396,6 +396,27 @@ const movePawn = (currentPosition, pawnColor) => {
     return allowedMoves;
 }
 
+const knight = (currentPositionXY) => {
+    
+        const moves = [[currentPositionXY[0]+1, currentPositionXY[1]+2],[currentPositionXY[0]+2, currentPositionXY[1]+1],[currentPositionXY[0]+2, currentPositionXY[1]-1],[currentPositionXY[0]+1, currentPositionXY[1]-2],[currentPositionXY[0]-1, currentPositionXY[1]-2],[currentPositionXY[0]-2, currentPositionXY[1]-1],[currentPositionXY[0]-2, currentPositionXY[1]+1],[currentPositionXY[0]-1, currentPositionXY[1]+2]]
+    
+        const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]>0 && move[1] <9) );
+        return regularMoves;
+}
+
+const moveKnight = (currentPosition, pawnColor) => {
+    
+    const possibleMoves = [];
+    const XYposition = convertToXY(currentPosition); 
+
+    const ruleSetMoves = knight(XYposition);
+    const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
+    
+    const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
+
+    return allowedMoves;
+}
+
 const renderMoves = (possibleMoves) => {
 
     const tiles = document.querySelectorAll(".tile");
@@ -428,11 +449,19 @@ const pieceClicled = (event) => {
     const currentPosition = event.target.parentElement.id;
     const pieceColor = board[event.target.parentElement.id].color;
     const pieceType = board[event.target.parentElement.id].piece;
-    
-    if(pieceType == "pawn") {
-        const moves = movePawn(currentPosition, pieceColor);
-        renderMoves(moves);
+    let moves;
+  
+    switch(pieceType) {
+        case("pawn"): 
+            moves = movePawn(currentPosition, pieceColor);
+            break;
+        case("knight"): 
+            moves = moveKnight(currentPosition, pieceColor);
+            break;
     }
+    
+    renderMoves(moves);
+    
 
 }
 
