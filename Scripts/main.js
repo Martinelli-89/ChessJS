@@ -290,6 +290,12 @@ const board = {
     }
 }
 
+const gameInfo = {
+    turn: "white",
+    piecesWhiteTook: [],
+    piecesBlackTook: []
+}
+
 const renderBoard = ( ) => {
 
     const tiles = document.querySelectorAll(".tile");
@@ -402,8 +408,23 @@ const renderMoves = (possibleMoves) => {
 
 }
 
+const clearActiveSelectedTiles = () => {
+
+    const activeTiles = document.querySelectorAll(".active");
+    const selectedPiece = document.querySelector(".selected");
+
+    activeTiles.forEach( tile => tile.classList.remove("active"));
+    selectedPiece.classList.remove("selected");
+
+}
+
 const pieceClicled = (event) => {
+
+    if(document.querySelector(".selected") != null) {
+        clearActiveSelectedTiles();
+    }
     
+    event.target.parentElement.classList.add("selected");
     const currentPosition = event.target.parentElement.id;
     const pieceColor = board[event.target.parentElement.id].color;
     const pieceType = board[event.target.parentElement.id].piece;
@@ -411,12 +432,13 @@ const pieceClicled = (event) => {
     if(pieceType == "pawn") {
         const moves = movePawn(currentPosition, pieceColor);
         renderMoves(moves);
-
     }
 
 }
 
 const tiles = document.querySelectorAll(".tile");
 for (let i=0; i<tiles.length; i++) {
-    tiles[i].addEventListener("click", pieceClicled);
+    if(board[tiles[i].id].piece != "") {
+        tiles[i].addEventListener("click", pieceClicled);
+    }
 }
