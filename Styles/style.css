@@ -225,4 +225,9 @@ body {
 .piece {
   max-width: 100%;
   max-height: 100%;
+}
+
+.active::after {
+  content: " X ";
+  color: green;
 }/*# sourceMappingURL=style.css.map */
