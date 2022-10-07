@@ -420,20 +420,50 @@ const convertXYtoBoardCoordinates= (XYPositions) => {
 
 const pawn = (currentPositionXY, pawnColor) => {
     
+    let moves=[];
+
     if (pawnColor == "white") {
-        const moves = [[currentPositionXY[0]-1, currentPositionXY[1]+1],
-                       [currentPositionXY[0], currentPositionXY[1]+1],
-                       [currentPositionXY[0]+1, currentPositionXY[1]+1]];
+        const left = [currentPositionXY[0]-1, currentPositionXY[1]+1];
+        const center = [currentPositionXY[0], currentPositionXY[1]+1];
+        const right = [currentPositionXY[0]+1, currentPositionXY[1]+1];
 
-        const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]<9) );
-        return regularMoves;
+        if (left[0]> 0 && left[1]<9) {
+            if(board[convertXYtoBoardCoordinates(left)].color == "black") {
+                moves.push(left);
+            }
+        }
+        if (center[1]<9) {
+            if(board[convertXYtoBoardCoordinates(center)].color == "") {
+                moves.push(center);
+            }
+        }
+        if (right[0]< 9 && right[1]<9) {
+            if(board[convertXYtoBoardCoordinates(right)].color == "black") {
+                moves.push(right);
+            }
+        }
+        return moves;
     } else {
-        const moves = [[currentPositionXY[0]-1, currentPositionXY[1]-1],
-                       [currentPositionXY[0], currentPositionXY[1]-1],
-                       [currentPositionXY[0]+1, currentPositionXY[1]-1]];
+        const left = [currentPositionXY[0]-1, currentPositionXY[1]-1];
+        const center = [currentPositionXY[0], currentPositionXY[1]-1];
+        const right = [currentPositionXY[0]+1, currentPositionXY[1]-1];
 
-        const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]>0) );
-        return regularMoves;
+        if (left[0]> 0 && left[1]>0) {
+            if(board[convertXYtoBoardCoordinates(left)].color == "white") {
+                moves.push(left);
+            }
+        }
+        if (center[1]>0) {
+            if(board[convertXYtoBoardCoordinates(center)].color == "") {
+                moves.push(center);
+            }
+        }
+        if (right[0]< 9 && right[1]>0) {
+            if(board[convertXYtoBoardCoordinates(right)].color == "white") {
+                moves.push(right);
+            }
+        }
+        return moves;
     }
 }
 
@@ -447,7 +477,17 @@ const movePawn = (currentPosition, pawnColor) => {
     
     const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
     if(board[currentPosition].hasMoved == false) {
-        allowedMoves.push(convertXYtoBoardCoordinates([XYposition[0],XYposition[1]+2]));
+        if(pawnColor == "white") {
+            const doubleStep = (convertXYtoBoardCoordinates([XYposition[0],XYposition[1]+2]));
+            if(board[doubleStep].color == "") {
+                allowedMoves.push(doubleStep);
+            }
+        } else {
+            const doubleStep = (convertXYtoBoardCoordinates([XYposition[0],XYposition[1]-2]));
+            if(board[doubleStep].color == "") {
+                allowedMoves.push(doubleStep);
+            }
+        }
     }
     return allowedMoves;
 }
@@ -724,7 +764,7 @@ const pieceClicled = (event) => {
             moves = moveKnight(currentPosition, pieceColor);
             break;
         case("king"): 
-            moves = moveKnight(currentPosition, pieceColor);
+            moves = moveKing(currentPosition, pieceColor);
             break;
         case("bishop"): 
             moves = moveBishop(currentPosition, pieceColor);
