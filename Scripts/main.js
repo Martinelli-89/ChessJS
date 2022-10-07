@@ -804,7 +804,40 @@ const check = (colorThatMovesLast) => {
             }
         });
         if(whitePossibleMoves.includes(blackKingPosition)) {
-            alert("check");
+            const kingTile = document.getElementById(blackKingPosition);
+            kingTile.classList.add("checked");
+            return;
+        }
+    } else {
+
+        const whiteKingPosition = findKingPosition("white");
+        const blackPiecesPositions = findPiecesOfSpecificColor("black");
+        
+        let blackPossibleMoves = [];
+
+        blackPiecesPositions.forEach ( element => {
+            switch(Object.values(element)[0]) {
+                case("pawn"):
+                    blackPossibleMoves=blackPossibleMoves.concat(movePawn(Object.keys(element)[0], "black"));
+                    break;
+                case("rock"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveRock(Object.keys(element)[0], "black"));
+                    break;
+                case("bishop"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveBishop(Object.keys(element)[0], "black"));
+                    break;
+                case("knight"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveKnight(Object.keys(element)[0], "black"));
+                    break;
+                case("queen"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveQueen(Object.keys(element)[0], "black"));
+                    break;
+            }
+        });
+        if(blackPossibleMoves.includes(whiteKingPosition)) {
+            const kingTile = document.getElementById(whiteKingPosition);
+            kingTile.classList.add("checked");
+            return;
         }
     }
 
