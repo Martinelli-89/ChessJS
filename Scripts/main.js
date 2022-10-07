@@ -336,7 +336,15 @@ const board = {
 const gameInfo = {
     turn: "white",
     piecesWhiteTook: [],
-    piecesBlackTook: []
+    piecesBlackTook: [],
+
+    updateTurn () {
+        if(this.turn == "white") {
+            this.turn = "black"
+        } else {
+            this.turn = "white";
+        }
+    }
 }
 
 const renderBoard = ( ) => {
@@ -728,24 +736,29 @@ const clearActiveSelectedTiles = () => {
 
 const pieceClicled = (event) => {
 
+    //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
         renderBoard();
         clearActiveSelectedTiles();
+        gameInfo.updateTurn();
         return;
     }
+    //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
         clearBoard();
         renderBoard();
         clearActiveSelectedTiles();
+        gameInfo.updateTurn();
         return;
     }
+    //Clear tiles that were made active with previous click
     if(document.querySelector(".selected") != null){
         clearActiveSelectedTiles();
-        return;
     }
+    //If piece is clicke mades it "selected" so it can be moved. Else stop function if empty tile was clicked
     if (event.target.parentElement.id != "") {
         event.target.parentElement.classList.add("selected");
     } else {
@@ -754,6 +767,11 @@ const pieceClicled = (event) => {
     const currentPosition = event.target.parentElement.id;
     const pieceColor = board[event.target.parentElement.id].color;
     const pieceType = board[event.target.parentElement.id].piece;
+
+    if(pieceColor != gameInfo.turn) {
+        return;
+    }
+
     let moves;
   
     switch(pieceType) {
