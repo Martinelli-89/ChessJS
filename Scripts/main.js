@@ -734,6 +734,25 @@ const clearActiveSelectedTiles = () => {
 
 }
 
+const renderTakenPieces = (piece, color) => {
+    
+    let renderingDiv;
+    const pieceToRender = document.createElement("img");
+    const pieceName = piece.charAt(0).toUpperCase() + piece.slice(1);
+
+    if (color == "white") {
+        renderingDiv = document.querySelector(".pieceBlackTook");
+        pieceToRender.src = `../Resources/White${pieceName}.svg`;
+        pieceToRender.classList.add("pieceTaken");
+        renderingDiv.append(pieceToRender);
+    } else {
+        renderingDiv = document.querySelector(".pieceWhiteTook");
+        pieceToRender.src = `../Resources/Black${pieceName}.svg`;
+        pieceToRender.classList.add("pieceTaken");
+        renderingDiv.append(pieceToRender);
+    }
+}
+
 const pieceClicled = (event) => {
 
     //Move piece on empty tiles
@@ -747,6 +766,7 @@ const pieceClicled = (event) => {
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
+        renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
         clearBoard();
         renderBoard();
