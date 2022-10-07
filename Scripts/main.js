@@ -753,25 +753,86 @@ const renderTakenPieces = (piece, color) => {
     }
 }
 
-const pieceClicled = (event) => {
+const findKingPosition = (color) => {
 
+    for (key in board) {
+        if(board[key].piece == "king" && board[key].color == color) {
+            return key;
+        }
+    }
+}
+
+const findPiecesOfSpecificColor = (color) => {
+
+	const piecesArr = [];
+
+	for (keys in board) {
+  
+  	if(board[keys].color == color) {
+    		piecesArr.push({[keys] : board[keys].piece});
+    }
+  }
+  return piecesArr;
+}
+
+const check = (colorThatMovesLast) => {
+    
+    if(colorThatMovesLast == "white") {
+
+        const blackKingPosition = findKingPosition("black");
+        const whitePiecesPositions = findPiecesOfSpecificColor("white");
+        
+        let whitePossibleMoves = [];
+
+        whitePiecesPositions.forEach ( element => {
+            switch(Object.values(element)[0]) {
+                case("pawn"):
+                    whitePossibleMoves=whitePossibleMoves.concat(movePawn(Object.keys(element)[0], "white"));
+                    break;
+                case("rock"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveRock(Object.keys(element)[0], "white"));
+                    break;
+                case("bishop"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveBishop(Object.keys(element)[0], "white"));
+                    break;
+                case("knight"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveKnight(Object.keys(element)[0], "white"));
+                    break;
+                case("queen"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveQueen(Object.keys(element)[0], "white"));
+                    break;
+            }
+        });
+        if(whitePossibleMoves.includes(blackKingPosition)) {
+            alert("check");
+        }
+    }
+
+}
+
+const pieceClicled = (event) => {
+    
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
+        const colorThatMoved = board[document.querySelector(".selected").id].color;
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
         renderBoard();
         clearActiveSelectedTiles();
         gameInfo.updateTurn();
+        check(colorThatMoved);
         return;
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
+        const colorThatMoved = board[document.querySelector(".selected").id].color;
         renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
         clearBoard();
         renderBoard();
         clearActiveSelectedTiles();
         gameInfo.updateTurn();
+        check(colorThatMoved);
         return;
     }
     //Clear tiles that were made active with previous click
