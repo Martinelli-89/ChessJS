@@ -287,7 +287,15 @@ const board = {
         piece: "rock",
         color: "black",
         source: "../Resources/BlackRock.svg"
-    }
+    },
+
+
+    updateBoard (tile1, tile2) {
+        this[tile2].piece = this[tile1].piece;
+        this[tile2].color = this[tile1].color;
+        this[tile1].piece = "";
+        this[tile1].color = "";
+        }
 }
 
 const gameInfo = {
@@ -610,9 +618,10 @@ const moveQueen = (currentPosition, pieceColor) => {
 const renderMoves = (possibleMoves) => {
 
     const tiles = document.querySelectorAll(".tile");
-
+    
     for(let i=0; i<tiles.length; i++) {
         if(possibleMoves.includes(tiles[i].id)) {
+            const classes = tiles[i].class
             tiles[i].classList.add("active");
         }
     }
@@ -631,11 +640,16 @@ const clearActiveSelectedTiles = () => {
 
 const pieceClicled = (event) => {
 
-    if(document.querySelector(".selected") != null) {
+   
+    if(document.querySelector(".selected") != null){
         clearActiveSelectedTiles();
+        return;
     }
-    
-    event.target.parentElement.classList.add("selected");
+    if (event.target.parentElement.id != "") {
+        event.target.parentElement.classList.add("selected");
+    } else {
+        return;
+    }
     const currentPosition = event.target.parentElement.id;
     const pieceColor = board[event.target.parentElement.id].color;
     const pieceType = board[event.target.parentElement.id].piece;
@@ -669,7 +683,5 @@ const pieceClicled = (event) => {
 
 const tiles = document.querySelectorAll(".tile");
 for (let i=0; i<tiles.length; i++) {
-    if(board[tiles[i].id].piece != "") {
         tiles[i].addEventListener("click", pieceClicled);
-    }
 }

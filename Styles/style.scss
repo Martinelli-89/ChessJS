@@ -23,17 +23,15 @@ body {
 
 
     .white {
-        background-color: white;
-        border: 1px solid black;
-        min-width: 12.5vw;
-        min-height: 12.5vw;
+        background-color: rgb(243, 151, 227);
+        min-width: 12vw;
+        min-height: 12vw;
     }
 
     .black {
         background-color: rgb(228, 81, 81);
-        border: 1px solid black;
-        min-width: 12.5vw;
-        min-height: 12.5vw;
+        min-width: 12vw;
+        min-height: 12vw;
     }
 
     #a8 {
@@ -293,6 +291,13 @@ body {
     }
 }
 
+.active {
+        -webkit-box-shadow:inset 0px 0px 0px 5px rgb(4, 151, 80);
+        -moz-box-shadow:inset 0px 0px 0px 5px rgb(4, 151, 80);
+        box-shadow:inset 0px 0px 0px 5px rgb(4, 151, 80);
+}
+
+
 .tile {
     display: flex;
     justify-content: center;
@@ -304,8 +309,3 @@ body {
     max-height: 100%;
 }
 
-.active::after {
-    content: " X ";
-    color: green;
-    font-size: 3rem;
-}
