@@ -4,97 +4,97 @@ const board = {
         piece: "rock",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteRock.svg"
+        source: "./Resources/WhiteRock.svg"
     },
     b1 : { 
         piece: "knight",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteKnight.svg"
+        source: "./Resources/WhiteKnight.svg"
     },
     c1 : { 
         piece: "bishop",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteBishop.svg"
+        source: "./Resources/WhiteBishop.svg"
     },
     d1 : { 
         piece: "queen",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteQueen.svg"
+        source: "./Resources/WhiteQueen.svg"
     },
     e1 : { 
         piece: "king",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteKing.svg"
+        source: "./Resources/WhiteKing.svg"
     },
     f1 : { 
         piece: "bishop",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteBishop.svg"
+        source: "./Resources/WhiteBishop.svg"
     },
     g1 : { 
         piece: "knight",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteKnight.svg"
+        source: "./Resources/WhiteKnight.svg"
     },
     h1 : { 
         piece: "rock",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhiteRock.svg"
+        source: "./Resources/WhiteRock.svg"
     },
     a2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     b2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     c2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     d2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     e2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     f2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     g2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     h2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "../Resources/WhitePawn.svg"
+        source: "./Resources/WhitePawn.svg"
     },
     a3 : { 
         piece: "",
@@ -228,97 +228,97 @@ const board = {
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     b7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     c7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     d7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     e7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     f7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     g7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     h7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackPawn.svg"
+        source: "./Resources/BlackPawn.svg"
     },
     a8 : { 
         piece: "rock",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackRock.svg"
+        source: "./Resources/BlackRock.svg"
     },
     b8 : { 
         piece: "knight",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackKnight.svg"
+        source: "./Resources/BlackKnight.svg"
     },
     c8 : { 
         piece: "bishop",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackBishop.svg"
+        source: "./Resources/BlackBishop.svg"
     },
     d8 : { 
         piece: "queen",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackQueen.svg"
+        source: "./Resources/BlackQueen.svg"
     },
     e8 : { 
         piece: "king",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackKing.svg"
+        source: "./Resources/BlackKing.svg"
     },
     f8 : { 
         piece: "bishop",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackBishop.svg"
+        source: "./Resources/BlackBishop.svg"
     },
     g8 : { 
         piece: "knight",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackKnight.svg"
+        source: "./Resources/BlackKnight.svg"
     },
     h8 : { 
         piece: "rock",
         color: "black",
         hasMoved : false,
-        source: "../Resources/BlackRock.svg"
+        source: "./Resources/BlackRock.svg"
     },
 
 
