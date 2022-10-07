@@ -330,7 +330,21 @@ const board = {
         this[tile1].piece = "";
         this[tile1].color = "";
         this[tile1].source = "";
-        }
+        },
+
+    removePiece(tile) {
+        this[tile].piece ="";
+        this[tile].color ="";
+        this[tile].source ="";
+        this[tile].hasMoved ="";
+    },
+
+    addPiece(piece, color, source, hasMoved, tile) {
+        this[tile].piece = piece;
+        this[tile].color = color;
+        this[tile].source = source;
+        this[tile].hasMoved = hasMoved;
+    }
 }
 
 const gameInfo = {
@@ -843,8 +857,39 @@ const check = (colorThatMovesLast) => {
 
 }
 
-const pieceClicled = (event) => {
+const checkIfMoved = (piecePosition, pieceColor) => {
     
+    //Save pieces info before removing from board
+    const imgSource = board[piecePosition].source;
+    const hasPieceMoved = board[piecePosition].hasMoved;
+    const piece = board[piecePosition].piece;
+
+    board.removePiece(piecePosition);
+    clearBoard();
+    renderBoard();
+    if(pieceColor == "black") {
+        check("white");
+    } else {
+        check("black");
+    }
+    const checked = document.querySelector(".checked");
+    if (checked != null) {
+        checked.classList.remove("checked");
+        board.addPiece(piece, pieceColor, imgSource, hasPieceMoved, piecePosition);
+        clearBoard();
+        renderBoard();
+        return true;
+    } else {
+        board.addPiece(piece, pieceColor, imgSource, hasPieceMoved, piecePosition);
+        clearBoard();
+        renderBoard();
+        return false;
+    }
+
+}
+
+const pieceClicled = (event) => {
+
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
@@ -872,15 +917,21 @@ const pieceClicled = (event) => {
     if(document.querySelector(".selected") != null){
         clearActiveSelectedTiles();
     }
-    //If piece is clicke mades it "selected" so it can be moved. Else stop function if empty tile was clicked
-    if (event.target.parentElement.id != "") {
-        event.target.parentElement.classList.add("selected");
-    } else {
-        return;
-    }
+
     const currentPosition = event.target.parentElement.id;
     const pieceColor = board[event.target.parentElement.id].color;
     const pieceType = board[event.target.parentElement.id].piece;
+
+    //If piece is clicke mades it "selected" so it can be moved. Else stop function if empty tile was clicked
+    if (event.target.parentElement.id != "") {
+        event.target.parentElement.classList.add("selected");
+        const checkToKingIfMoved = checkIfMoved(event.target.parentElement.id, board[event.target.parentElement.id].color);
+        if(checkToKingIfMoved == true) {
+            return;
+        }
+    } else {
+        return;
+    }
 
     if(pieceColor != gameInfo.turn) {
         return;
