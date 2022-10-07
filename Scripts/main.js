@@ -485,7 +485,7 @@ const moveBishop = (currentPosition, pieceColor) => {
     //Moves for South east diagonal
     for( let i=1; i < 8; i++) {
         const X = XYposition[0]+i;
-        const Y = (XYposition[1]-i)*-1;
+        const Y = (XYposition[1]-i);
         if( X > 8 || Y > 8 || X < 1 || Y < 1) {
             break;
         }
@@ -502,8 +502,8 @@ const moveBishop = (currentPosition, pieceColor) => {
 
     //Moves for South west diagonal
     for( let i=1; i < 8; i++) {
-        const X = (XYposition[0]-i)*-1;
-        const Y = (XYposition[1]-i)*-1;
+        const X = (XYposition[0]-i);
+        const Y = (XYposition[1]-i);
         if( X > 8 || Y > 8 || X < 1 || Y < 1) {
             break;
         }
@@ -520,8 +520,8 @@ const moveBishop = (currentPosition, pieceColor) => {
 
     //Moves for North west diagonal
     for( let i=1; i < 8; i++) {
-        const X = (XYposition[0]-i)*-1;
-        const Y = (XYposition[1]+i)*-1;
+        const X = (XYposition[0]-i);
+        const Y = (XYposition[1]+i);
         if( X > 8 || Y > 8 || X < 1 || Y < 1) {
             break;
         }
@@ -583,7 +583,7 @@ const moveRock = (currentPosition, pieceColor) => {
     //South moves
     for( let i=1; i < 8; i++) {
         const X = XYposition[0];
-        const Y = (XYposition[1]-i)*-1;
+        const Y = (XYposition[1]-i);
         if( X > 8 || Y > 8 || X < 1 || Y < 1) {
             break;
         }
@@ -600,7 +600,7 @@ const moveRock = (currentPosition, pieceColor) => {
 
     //West moves
     for( let i=1; i < 8; i++) {
-        const X = (XYposition[0]-i)*-1;
+        const X = (XYposition[0]-i);
         const Y = XYposition[1];
         if( X > 8 || Y > 8 || X < 1 || Y < 1) {
             break;
@@ -657,6 +657,7 @@ const pieceClicled = (event) => {
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
         renderBoard();
+        clearActiveSelectedTiles();
         return;
     }
     if(document.querySelector(".selected") != null){
