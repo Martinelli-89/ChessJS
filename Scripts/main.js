@@ -293,8 +293,10 @@ const board = {
     updateBoard (tile1, tile2) {
         this[tile2].piece = this[tile1].piece;
         this[tile2].color = this[tile1].color;
+        this[tile2].source = this[tile1].source;
         this[tile1].piece = "";
         this[tile1].color = "";
+        this[tile1].source = "";
         }
 }
 
@@ -320,6 +322,17 @@ const renderBoard = ( ) => {
 
     })
 
+}
+
+const clearBoard = () => {
+
+    const tiles = document.querySelectorAll(".tile");
+
+    tiles.forEach( tile => { 
+        if (tile.childNodes.length > 0 ) {
+            tile.removeChild(tile.firstChild);
+        }
+    });
 }
 
 renderBoard();
@@ -640,7 +653,12 @@ const clearActiveSelectedTiles = () => {
 
 const pieceClicled = (event) => {
 
-   
+    if(event.target.classList.contains("active")) {
+        board.updateBoard(document.querySelector(".selected").id, event.target.id);
+        clearBoard();
+        renderBoard();
+        return;
+    }
     if(document.querySelector(".selected") != null){
         clearActiveSelectedTiles();
         return;
