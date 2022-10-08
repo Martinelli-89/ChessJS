@@ -531,7 +531,7 @@ const king = (currentPositionXY) => {
 }
 
 const moveKing = (currentPosition, pawnColor) => {
-    
+   
     const possibleMoves = [];
     const XYposition = convertToXY(currentPosition); 
 
@@ -540,8 +540,75 @@ const moveKing = (currentPosition, pawnColor) => {
     
     const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
 
-    return allowedMoves;
+    if(pawnColor == "black") {
+
+        const whitePiecesPositions = findPiecesOfSpecificColor("white");
+        
+        let whitePossibleMoves = [];
+
+        whitePiecesPositions.forEach ( element => {
+            switch(Object.values(element)[0]) {
+                case("pawn"):
+                    whitePossibleMoves=whitePossibleMoves.concat(movePawn(Object.keys(element)[0], "white"));
+                    break;
+                case("rock"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveRock(Object.keys(element)[0], "white"));
+                    break;
+                case("bishop"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveBishop(Object.keys(element)[0], "white"));
+                    break;
+                case("knight"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveKnight(Object.keys(element)[0], "white"));
+                    break;
+                case("queen"):
+                    whitePossibleMoves=whitePossibleMoves.concat(moveQueen(Object.keys(element)[0], "white"));
+                    break;
+            }
+        });
+        let movesNotCausingCheck=[];
+        allowedMoves.forEach( move => {
+            if(whitePossibleMoves.includes(move)) {
+            } else {
+                movesNotCausingCheck.push(move);
+            }
+        });
+        return movesNotCausingCheck;
+    } else {
+
+        const blackPiecesPositions = findPiecesOfSpecificColor("black");
+            
+        let blackPossibleMoves = [];
+
+        blackPiecesPositions.forEach ( element => {
+            switch(Object.values(element)[0]) {
+                case("pawn"):
+                    blackPossibleMoves=blackPossibleMoves.concat(movePawn(Object.keys(element)[0], "black"));
+                    break;
+                case("rock"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveRock(Object.keys(element)[0], "black"));
+                    break;
+                case("bishop"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveBishop(Object.keys(element)[0], "black"));
+                    break;
+                case("knight"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveKnight(Object.keys(element)[0], "black"));
+                    break;
+                case("queen"):
+                    blackPossibleMoves=blackPossibleMoves.concat(moveQueen(Object.keys(element)[0], "black"));
+                    break;
+            }
+        });
+        let movesNotCausingCheck=[];
+        allowedMoves.forEach( move => {
+            if(blackPossibleMoves.includes(move)) {
+            } else {
+                movesNotCausingCheck.push(move);
+            }
+        });
+        return movesNotCausingCheck;
+        }
 }
+
 
 const moveKnight = (currentPosition, pawnColor) => {
     
@@ -889,7 +956,7 @@ const checkIfMoved = (piecePosition, pieceColor) => {
 }
 
 const pieceClicled = (event) => {
-
+    
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
