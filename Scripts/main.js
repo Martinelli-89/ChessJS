@@ -959,6 +959,17 @@ const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
     return movesToCheck;
 }
 
+const clearChecked = () => {
+
+    const checkedKing = document.querySelector(".checked");
+    if (checkedKing == null) {
+        return;
+    }
+
+    checkedKing.classList.remove("checked");
+    return;
+}
+
 const pieceClicled = (event) => {
 
     //Move piece on empty tiles
@@ -969,6 +980,7 @@ const pieceClicled = (event) => {
         renderBoard();
         clearActiveSelectedTiles();
         gameInfo.updateTurn();
+        clearChecked();
         check(colorThatMoved);
         return;
     }
@@ -982,6 +994,7 @@ const pieceClicled = (event) => {
         renderBoard();
         clearActiveSelectedTiles();
         gameInfo.updateTurn();
+        clearChecked();
         check(colorThatMoved);
         return;
     }
