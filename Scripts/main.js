@@ -1,4 +1,4 @@
-const board = {
+let board = {
 
     a1 : { 
         piece: "rock",
@@ -332,6 +332,17 @@ const board = {
         this[tile1].source = "";
         },
 
+    updateBoardForCheck (tile1, tile2) {
+        this[tile2].piece = this[tile1].piece;
+        this[tile2].color = this[tile1].color;
+        this[tile2].source = this[tile1].source;
+        this[tile2].hasMoved = false;
+        this[tile1].piece = "";
+        this[tile1].color = "";
+        this[tile1].source = ""; 
+        this[tile1].hasMoved="";
+    },
+
     removePiece(tile) {
         this[tile].piece ="";
         this[tile].color ="";
@@ -491,7 +502,6 @@ const pawn = (currentPositionXY, pawnColor) => {
 
 const movePawn = (currentPosition, pawnColor) => {
     
-    const possibleMoves = [];
     const XYposition = convertToXY(currentPosition); 
 
     const ruleSetMoves = pawn(XYposition ,pawnColor);
@@ -511,6 +521,7 @@ const movePawn = (currentPosition, pawnColor) => {
             }
         }
     }
+    
     return allowedMoves;
 }
 
@@ -530,49 +541,34 @@ const king = (currentPositionXY) => {
     return regularMoves;
 }
 
-const moveKing = (currentPosition, pawnColor) => {
-   
-    const possibleMoves = [];
-    const XYposition = convertToXY(currentPosition); 
+const findOpponentAllPossibleMoves = (color) => {
 
-    const ruleSetMoves = king(XYposition);
-    const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
-    
-    const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
+    if(color == "black") {
 
-    if(pawnColor == "black") {
-
-        const whitePiecesPositions = findPiecesOfSpecificColor("white");
+    const whitePiecesPositions = findPiecesOfSpecificColor("white");
         
-        let whitePossibleMoves = [];
+    let whitePossibleMoves = [];
 
-        whitePiecesPositions.forEach ( element => {
-            switch(Object.values(element)[0]) {
-                case("pawn"):
-                    whitePossibleMoves=whitePossibleMoves.concat(movePawn(Object.keys(element)[0], "white"));
-                    break;
-                case("rock"):
-                    whitePossibleMoves=whitePossibleMoves.concat(moveRock(Object.keys(element)[0], "white"));
-                    break;
-                case("bishop"):
-                    whitePossibleMoves=whitePossibleMoves.concat(moveBishop(Object.keys(element)[0], "white"));
-                    break;
-                case("knight"):
-                    whitePossibleMoves=whitePossibleMoves.concat(moveKnight(Object.keys(element)[0], "white"));
-                    break;
-                case("queen"):
-                    whitePossibleMoves=whitePossibleMoves.concat(moveQueen(Object.keys(element)[0], "white"));
-                    break;
-            }
-        });
-        let movesNotCausingCheck=[];
-        allowedMoves.forEach( move => {
-            if(whitePossibleMoves.includes(move)) {
-            } else {
-                movesNotCausingCheck.push(move);
-            }
-        });
-        return movesNotCausingCheck;
+    whitePiecesPositions.forEach ( element => {
+        switch(Object.values(element)[0]) {
+            case("pawn"):
+                whitePossibleMoves=whitePossibleMoves.concat(movePawn(Object.keys(element)[0], "white"));
+                break;
+            case("rock"):
+                whitePossibleMoves=whitePossibleMoves.concat(moveRock(Object.keys(element)[0], "white"));
+                break;
+            case("bishop"):
+                whitePossibleMoves=whitePossibleMoves.concat(moveBishop(Object.keys(element)[0], "white"));
+                break;
+            case("knight"):
+                whitePossibleMoves=whitePossibleMoves.concat(moveKnight(Object.keys(element)[0], "white"));
+                break;
+            case("queen"):
+                whitePossibleMoves=whitePossibleMoves.concat(moveQueen(Object.keys(element)[0], "white"));
+                break;
+        }
+    });
+    return whitePossibleMoves;
     } else {
 
         const blackPiecesPositions = findPiecesOfSpecificColor("black");
@@ -598,21 +594,28 @@ const moveKing = (currentPosition, pawnColor) => {
                     break;
             }
         });
-        let movesNotCausingCheck=[];
-        allowedMoves.forEach( move => {
-            if(blackPossibleMoves.includes(move)) {
-            } else {
-                movesNotCausingCheck.push(move);
-            }
-        });
-        return movesNotCausingCheck;
-        }
+        return blackPossibleMoves;
+    }
+
+}
+
+const moveKing = (currentPosition, pawnColor) => {
+   
+    const XYposition = convertToXY(currentPosition); 
+
+    const ruleSetMoves = king(XYposition);
+    const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
+    
+    const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
+
+    const movesThatCauseCheck = checkIfMoved(currentPosition, pawnColor, allowedMoves);
+
+    return allowedMoves;
 }
 
 
 const moveKnight = (currentPosition, pawnColor) => {
     
-    const possibleMoves = [];
     const XYposition = convertToXY(currentPosition); 
 
     const ruleSetMoves = knight(XYposition);
@@ -887,7 +890,7 @@ const check = (colorThatMovesLast) => {
         if(whitePossibleMoves.includes(blackKingPosition)) {
             const kingTile = document.getElementById(blackKingPosition);
             kingTile.classList.add("checked");
-            return;
+            return true;
         }
     } else {
 
@@ -918,47 +921,45 @@ const check = (colorThatMovesLast) => {
         if(blackPossibleMoves.includes(whiteKingPosition)) {
             const kingTile = document.getElementById(whiteKingPosition);
             kingTile.classList.add("checked");
-            return;
+            return true;
         }
     }
 
 }
 
-const checkIfMoved = (piecePosition, pieceColor) => {
-    
-    //Save pieces info before removing from board
-    const imgSource = board[piecePosition].source;
-    const hasPieceMoved = board[piecePosition].hasMoved;
-    const piece = board[piecePosition].piece;
+const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
+   
+    const movesThatCauseCheck = [];
+    const movesToCheck = [...arrayOfMoves];
 
-    board.removePiece(piecePosition);
-    clearBoard();
-    renderBoard();
-    if(pieceColor == "black") {
-        check("white");
-    } else {
-        check("black");
-    }
-    const checked = document.querySelector(".checked");
-    if (checked != null) {
-        checked.classList.remove("checked");
-        board.addPiece(piece, pieceColor, imgSource, hasPieceMoved, piecePosition);
-        clearBoard();
-        renderBoard();
-        return true;
-    } else {
-        board.addPiece(piece, pieceColor, imgSource, hasPieceMoved, piecePosition);
-        clearBoard();
-        renderBoard();
-        return false;
-    }
+    arrayOfMoves.forEach ( move => { 
+        board.updateBoardForCheck(currentPosition, move);
+        const opponentMoves = findOpponentAllPossibleMoves(colorPiece);
+        const kingPosition = findKingPosition(colorPiece);
+        if(opponentMoves.includes(kingPosition)) {
+            movesThatCauseCheck.push(move);
+        }
+        board.updateBoardForCheck(move, currentPosition);
+    });
 
+    for(let i=0; i< movesThatCauseCheck.length; i++) {
+        if((movesToCheck.includes(movesThatCauseCheck[i]))) {
+            for(let y=0; y<movesToCheck.length;y++) {
+                if(movesToCheck[y] == movesThatCauseCheck[i]) {
+                    movesToCheck.splice(y,1);
+                    y=0;
+                }   
+            }
+        }
+    }
+    return movesToCheck;
 }
 
 const pieceClicled = (event) => {
-    
+
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
+        
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
@@ -992,10 +993,6 @@ const pieceClicled = (event) => {
     //If piece is clicke mades it "selected" so it can be moved. Else stop function if empty tile was clicked
     if (event.target.parentElement.id != "") {
         event.target.parentElement.classList.add("selected");
-        const checkToKingIfMoved = checkIfMoved(event.target.parentElement.id, board[event.target.parentElement.id].color);
-        if(checkToKingIfMoved == true) {
-            return;
-        }
     } else {
         return;
     }
@@ -1027,7 +1024,8 @@ const pieceClicled = (event) => {
             break;
     }
     
-    renderMoves(moves);
+    const movesThatDontCauseCheck = checkIfMoved(currentPosition, pieceColor, moves);
+    renderMoves(movesThatDontCauseCheck);
     
 
 }
