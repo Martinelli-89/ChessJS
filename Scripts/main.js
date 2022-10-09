@@ -935,14 +935,29 @@ const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
     const movesThatCauseCheck = [];
     const movesToCheck = [...arrayOfMoves];
 
-    arrayOfMoves.forEach ( move => { 
-        board.updateBoardForCheck(currentPosition, move);
+    arrayOfMoves.forEach ( move => {  
+        const tempPiece = board[move].piece;
+        const tempColor = board[move].color;
+        const tempSource = board[move].source;
+        const tempStatus = board[move].hasMoved;
+        let hasTakenPiece = false;
+        if(board[move].color != colorPiece && board[move].color != "") {
+            board.updateBoard(currentPosition, move);
+            hasTakenPiece = true;
+        } else {
+            board.updateBoardForCheck(currentPosition, move);
+        }
         const opponentMoves = findOpponentAllPossibleMoves(colorPiece);
         const kingPosition = findKingPosition(colorPiece);
         if(opponentMoves.includes(kingPosition)) {
             movesThatCauseCheck.push(move);
         }
-        board.updateBoardForCheck(move, currentPosition);
+        if(hasTakenPiece == true) {
+            board.updateBoard(move, currentPosition);
+            board.addPiece(tempPiece,tempColor,tempSource,tempStatus,move);
+        } else {
+            board.updateBoardForCheck(move, currentPosition);
+        }
     });
 
     for(let i=0; i< movesThatCauseCheck.length; i++) {
