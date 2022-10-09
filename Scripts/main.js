@@ -1,82 +1,82 @@
-let board = {
+const board = {
 
     a1 : { 
         piece: "rock",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteRock.svg"
+        source: "../Resources/WhiteRock.svg"
     },
     b1 : { 
         piece: "knight",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteKnight.svg"
+        source: "../Resources/WhiteKnight.svg"
     },
     c1 : { 
         piece: "bishop",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteBishop.svg"
+        source: "../Resources/WhiteBishop.svg"
     },
     d1 : { 
         piece: "queen",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteQueen.svg"
+        source: "../Resources/WhiteQueen.svg"
     },
     e1 : { 
         piece: "king",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteKing.svg"
+        source: "../Resources/WhiteKing.svg"
     },
     f1 : { 
         piece: "bishop",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteBishop.svg"
+        source: "../Resources/WhiteBishop.svg"
     },
     g1 : { 
         piece: "knight",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteKnight.svg"
+        source: "../Resources/WhiteKnight.svg"
     },
     h1 : { 
         piece: "rock",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhiteRock.svg"
+        source: "../Resources/WhiteRock.svg"
     },
     a2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     b2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     c2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     d2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     e2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     f2 : { 
         piece: "pawn",
@@ -88,13 +88,13 @@ let board = {
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     h2 : { 
         piece: "pawn",
         color: "white",
         hasMoved : false,
-        source: "./Resources/WhitePawn.svg"
+        source: "../Resources/WhitePawn.svg"
     },
     a3 : { 
         piece: "",
@@ -228,97 +228,97 @@ let board = {
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     b7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     c7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     d7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     e7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     f7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     g7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     h7 : { 
         piece: "pawn",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackPawn.svg"
+        source: "../Resources/BlackPawn.svg"
     },
     a8 : { 
         piece: "rock",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackRock.svg"
+        source: "../Resources/BlackRock.svg"
     },
     b8 : { 
         piece: "knight",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackKnight.svg"
+        source: "../Resources/BlackKnight.svg"
     },
     c8 : { 
         piece: "bishop",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackBishop.svg"
+        source: "../Resources/BlackBishop.svg"
     },
     d8 : { 
         piece: "queen",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackQueen.svg"
+        source: "../Resources/BlackQueen.svg"
     },
     e8 : { 
         piece: "king",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackKing.svg"
+        source: "../Resources/BlackKing.svg"
     },
     f8 : { 
         piece: "bishop",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackBishop.svg"
+        source: "../Resources/BlackBishop.svg"
     },
     g8 : { 
         piece: "knight",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackKnight.svg"
+        source: "../Resources/BlackKnight.svg"
     },
     h8 : { 
         piece: "rock",
         color: "black",
         hasMoved : false,
-        source: "./Resources/BlackRock.svg"
+        source: "../Resources/BlackRock.svg"
     },
 
 
@@ -333,14 +333,17 @@ let board = {
         },
 
     updateBoardForCheck (tile1, tile2) {
+        let colorTosave = this[tile2].color;
+        let pieceTosave = this[tile2].piece;
+        let sourceTosave = this[tile2].source;
         this[tile2].piece = this[tile1].piece;
         this[tile2].color = this[tile1].color;
         this[tile2].source = this[tile1].source;
         this[tile2].hasMoved = false;
-        this[tile1].piece = "";
-        this[tile1].color = "";
-        this[tile1].source = ""; 
-        this[tile1].hasMoved="";
+        this[tile1].piece = pieceTosave;
+        this[tile1].color = colorTosave;
+        this[tile1].source = sourceTosave; 
+        this[tile1].hasMoved= false;
     },
 
     removePiece(tile) {
@@ -952,6 +955,7 @@ const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
             }
         }
     }
+
     return movesToCheck;
 }
 
@@ -959,7 +963,6 @@ const pieceClicled = (event) => {
 
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
-        
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
@@ -971,6 +974,7 @@ const pieceClicled = (event) => {
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
+        console.log(event.target.parentElement.id);
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
