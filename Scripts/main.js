@@ -400,6 +400,40 @@ const board = {
             this.a1.piece = "";
             this.a1.source = ""
             this.a1.hasMoved = true;
+        } else if(tile == "g8") {
+            this.g8.color = "black";
+            this.g8.piece = "king";
+            this.g8.source = "../Resources/BlackKing.svg"
+            this.g8.hasMoved = true;
+            this.f8.color = "black";
+            this.f8.piece = "rock";
+            this.f8.source = "../Resources/BlackRock.svg"
+            this.f8.hasMoved = true;
+            this.e8.color = "";
+            this.e8.piece = "";
+            this.e8.source = ""
+            this.e8.hasMoved = true;
+            this.h8.color = "";
+            this.h8.piece = "";
+            this.h8.source = ""
+            this.h8.hasMoved = true;
+        } else {
+            this.c8.color = "black";
+            this.c8.piece = "king";
+            this.c8.source = "../Resources/BlackKing.svg"
+            this.c8.hasMoved = true;
+            this.d8.color = "black";
+            this.d8.piece = "rock";
+            this.d8.source = "../Resources/BlackRock.svg"
+            this.d8.hasMoved = true;
+            this.e8.color = "";
+            this.e8.piece = "";
+            this.e8.source = ""
+            this.e8.hasMoved = true;
+            this.a8.color = "";
+            this.a8.piece = "";
+            this.a8.source = ""
+            this.a8.hasMoved = true;
         }
     }
 }
@@ -721,6 +755,18 @@ const moveKing = (currentPosition, pawnColor) => {
         const castleTile = document.getElementById("c1");
         castleTile.classList.add("castleHere");
         ruleSetMovesToBoardCoordinates.push("c1");
+     }
+    //Castling on the right black
+     if (opponentMoves.includes("f8") == false && opponentMoves.includes("g8") == false && board.f8.color == "" && board.g8.color == "" && board.e8.hasMoved == false && board.h8.hasMoved == false) {
+        const castleTile = document.getElementById("g8");
+        castleTile.classList.add("castleHere");
+        ruleSetMovesToBoardCoordinates.push("g8");
+     }
+     //Castling on the left black
+     if (opponentMoves.includes("c8") == false && opponentMoves.includes("d8") == false && board.b8.color == "" && board.c8.color == "" && board.d8.color == "" && board.e8.hasMoved == false && board.a8.hasMoved == false) {
+        const castleTile = document.getElementById("c8");
+        castleTile.classList.add("castleHere");
+        ruleSetMovesToBoardCoordinates.push("c8");
      }
 
     const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
