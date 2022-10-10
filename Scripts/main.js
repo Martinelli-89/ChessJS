@@ -363,6 +363,44 @@ const board = {
     swapPawn(tile, source, piece) {
         this[tile].source = source;
         this[tile].piece = piece;
+    },
+
+    castle(tile) {
+        if(tile == "g1") {
+            this.g1.color = "white";
+            this.g1.piece = "king";
+            this.g1.source = "../Resources/WhiteKing.svg"
+            this.g1.hasMoved = true;
+            this.f1.color = "white";
+            this.f1.piece = "rock";
+            this.f1.source = "../Resources/WhiteRock.svg"
+            this.f1.hasMoved = true;
+            this.e1.color = "";
+            this.e1.piece = "";
+            this.e1.source = ""
+            this.e1.hasMoved = true;
+            this.h1.color = "";
+            this.h1.piece = "";
+            this.h1.source = ""
+            this.h1.hasMoved = true;
+        } else if(tile == "c1") {
+            this.c1.color = "white";
+            this.c1.piece = "king";
+            this.c1.source = "../Resources/WhiteKing.svg"
+            this.c1.hasMoved = true;
+            this.d1.color = "white";
+            this.d1.piece = "rock";
+            this.d1.source = "../Resources/WhiteRock.svg"
+            this.d1.hasMoved = true;
+            this.e1.color = "";
+            this.e1.piece = "";
+            this.e1.source = ""
+            this.e1.hasMoved = true;
+            this.a1.color = "";
+            this.a1.piece = "";
+            this.a1.source = ""
+            this.a1.hasMoved = true;
+        }
     }
 }
 
@@ -671,9 +709,22 @@ const moveKing = (currentPosition, pawnColor) => {
     const ruleSetMoves = king(XYposition);
     const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
     
+    const opponentMoves = findOpponentAllPossibleMoves(pawnColor);
+     //Castling on the right white
+     if (opponentMoves.includes("f1") == false && opponentMoves.includes("g1") == false && board.f1.color == "" && board.g1.color == "" && board.e1.hasMoved == false && board.h1.hasMoved == false) {
+        const castleTile = document.getElementById("g1");
+        castleTile.classList.add("castleHere");
+        ruleSetMovesToBoardCoordinates.push("g1");
+     }
+     //Castling on the left white
+     if (opponentMoves.includes("c1") == false && opponentMoves.includes("d1") == false && board.b1.color == "" && board.c1.color == "" && board.d1.color == "" && board.e1.hasMoved == false && board.a1.hasMoved == false) {
+        const castleTile = document.getElementById("c1");
+        castleTile.classList.add("castleHere");
+        ruleSetMovesToBoardCoordinates.push("c1");
+     }
+
     const allowedMoves = ruleSetMovesToBoardCoordinates.filter( coordinate => board[coordinate].color != pawnColor);
 
-    const movesThatCauseCheck = checkIfMoved(currentPosition, pawnColor, allowedMoves);
 
     return allowedMoves;
 }
@@ -1146,7 +1197,21 @@ const pieceClicled = (event) => {
         return;
     }
 
-    //Move piece on empty tiles
+    //Castling
+    if(event.target.classList.contains("castleHere")) { 
+        const colorThatMoved = board[document.querySelector(".selected").id].color;
+        board.castle(event.target.id);
+        clearBoard();
+        renderBoard();
+        clearActiveSelectedTiles();
+        event.target.classList.remove("castleHere");
+        gameInfo.updateTurn();
+        clearChecked();
+        check(colorThatMoved);
+
+        return;
+    } 
+    //Move on empty tile
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
