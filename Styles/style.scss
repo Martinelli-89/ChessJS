@@ -359,3 +359,14 @@ body {
     -moz-box-shadow:inset 0px 0px 0px 5px rgb(255, 0, 0);
     box-shadow:inset 0px 0px 0px 5px rgb(255, 0, 0);
 }
+
+.swapPiece {
+    display: flex;
+    width: 60vw;
+    height: 9vh;
+
+    .pieceToSwap {
+        max-height: 90%;
+        max-width: 90%;
+    }
+}

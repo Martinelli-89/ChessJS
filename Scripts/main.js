@@ -358,13 +358,76 @@ const board = {
         this[tile].color = color;
         this[tile].source = source;
         this[tile].hasMoved = hasMoved;
+    },
+
+    swapPawn(tile, source, piece) {
+        this[tile].source = source;
+        this[tile].piece = piece;
     }
+}
+
+const swapPiece = [[ "../Resources/WhiteRock.svg",
+                    "../Resources/WhiteBishop.svg",
+                    "../Resources/WhiteKnight.svg",
+                    "../Resources/WhiteQueen.svg"],[
+                    "../Resources/BlackRock.svg",
+                    "../Resources/BlackBishop.svg",
+                    "../Resources/BlackKnight.svg",
+                    "../Resources/BlackQueen.svg"]];
+
+
+const renderSwap = (color) => {
+    const swapArea = document.querySelector(".swapPiece");
+    gameInfo.isSwapOn = true;
+    const alt=["rock","bishop","knight","queen"];
+    let i=0;
+    if(color == "white") {
+        swapPiece[0].forEach( address => {
+            const pieceToRender = document.createElement("img")
+            pieceToRender.src = address;
+            pieceToRender.alt = alt[i];
+            pieceToRender.classList.add("pieceToSwap");
+            pieceToRender.addEventListener("click", pawnForNewPiece);
+            swapArea.append(pieceToRender);
+            i++;
+        });
+    } else {
+        swapPiece[1].forEach( address => {
+            const pieceToRender = document.createElement("img")
+            pieceToRender.src = address;
+            pieceToRender.alt = alt[i];
+            pieceToRender.classList.add("pieceToSwap");
+            pieceToRender.addEventListener("click", pawnForNewPiece);
+            swapArea.append(pieceToRender);
+            i++;
+        });
+    }
+}
+
+const pawnForNewPiece = (event) => {
+    console.log(document.querySelector(".swapHere").id);
+    board.swapPawn(document.querySelector(".swapHere").id, event.target.src, event.target.alt);
+    clearBoard();
+    renderBoard();
+    gameInfo.isSwapOn = false;
+    if(gameInfo.turn == white) {
+        check("black");
+    } else {
+        check("white");
+    }
+    const clearSwapArea = document.querySelectorAll(".pieceToSwap");
+    clearSwapArea.forEach( element => {
+        element.parentNode.removeChild(element);
+    })
+
+    return;
 }
 
 const gameInfo = {
     turn: "white",
     piecesWhiteTook: [],
     piecesBlackTook: [],
+    isSwapOn: false,
 
     updateTurn () {
         if(this.turn == "white") {
@@ -985,11 +1048,108 @@ const clearChecked = () => {
     return;
 }
 
+const checkmate = (pieceThatMovedLast) => {
+
+    let movesThatAvoidCheck = [];
+
+    if (pieceThatMovedLast == "white") {
+        
+        const blackPiecesPositions = findPiecesOfSpecificColor("black");
+        
+        blackPiecesPositions.forEach ( position => {
+            const boardPosition = Object.keys(position)[0]; console.log(boardPosition);
+            const piece = Object.values(position)[0];
+            switch(piece) {
+                case("pawn"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", movePawn(position, "black")));
+                    break;
+                case("rock"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveRock(boardPosition, "black")));
+                    break;
+                case("knight"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKnight(boardPosition, "black")));
+                    break;
+                case("bishop"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveBishop(boardPosition, "black")));
+                    break;
+                case("queen"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveQueen(boardPosition, "black")));
+                    break;
+                case("king"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKing(boardPosition, "black")));
+                    break;
+            }
+        });
+
+        if(movesThatAvoidCheck.length < 1) {
+            console.log("checkmate");
+        }
+
+    } else {
+        const whitePiecesPositions = findPiecesOfSpecificColor("white");
+        
+        whitePiecesPositions.forEach ( position => {
+            const boardPosition = Object.keys(position)[0];
+            const piece = Object.values(position)[0];
+            switch(piece) {
+                case("pawn"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", movePawn(boardPosition, "white")));
+                    break;
+                case("rock"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveRock(boardPosition, "white")));
+                    break;
+                case("knight"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKnight(boardPosition, "white")));
+                    break;
+                case("bishop"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveBishop(boardPosition, "white")));
+                    break;
+                case("queen"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveQueen(boardPosition, "white")));
+                    break;
+                case("king"):
+                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKing(boardPosition, "white")));
+                    break;
+            }
+        });
+
+        if(movesThatAvoidCheck.length < 1) {
+            console.log("checkmate");
+        }
+    }
+}
+
+
+const pawnEndline = (piece, color, movedOnTile) => {
+
+    if(piece != "pawn") {
+        return;
+    }
+
+    if(convertToXY(movedOnTile)[1] == 8 && color == "white") {
+        const finalTile = document.getElementById(movedOnTile);
+        finalTile.classList.add("swapHere");
+        renderSwap("white");
+        return;
+    } 
+
+    if(convertToXY(movedOnTile)[1] == 1 && color == "black") {
+        const finalTile = document.getElementById(movedOnTile);
+        renderSwap("black");
+        return;
+    } 
+}
+
 const pieceClicled = (event) => {
+
+    if(gameInfo.isSwapOn == true) {
+        return;
+    }
 
     //Move piece on empty tiles
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
+        pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
         renderBoard();
@@ -997,11 +1157,12 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
+
         return;
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
-        console.log(event.target.parentElement.id);
+        pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.parentElement.id );
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
