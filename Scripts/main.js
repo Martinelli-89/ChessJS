@@ -742,28 +742,29 @@ const moveKing = (currentPosition, pawnColor) => {
 
     const ruleSetMoves = king(XYposition);
     const ruleSetMovesToBoardCoordinates = ruleSetMoves.map (coordinates => convertXYtoBoardCoordinates(coordinates));
-    
+    const isChecked = document.querySelector(".checked");
+
     const opponentMoves = findOpponentAllPossibleMoves(pawnColor);
      //Castling on the right white
-     if (opponentMoves.includes("f1") == false && opponentMoves.includes("g1") == false && board.f1.color == "" && board.g1.color == "" && board.e1.hasMoved == false && board.h1.hasMoved == false) {
+     if (opponentMoves.includes("f1") == false && opponentMoves.includes("g1") == false && board.f1.color == "" && board.g1.color == "" && board.e1.hasMoved == false && board.h1.hasMoved == false && isChecked == null) {
         const castleTile = document.getElementById("g1");
         castleTile.classList.add("castleHere");
         ruleSetMovesToBoardCoordinates.push("g1");
      }
      //Castling on the left white
-     if (opponentMoves.includes("c1") == false && opponentMoves.includes("d1") == false && board.b1.color == "" && board.c1.color == "" && board.d1.color == "" && board.e1.hasMoved == false && board.a1.hasMoved == false) {
+     if (opponentMoves.includes("c1") == false && opponentMoves.includes("d1") == false && board.b1.color == "" && board.c1.color == "" && board.d1.color == "" && board.e1.hasMoved == false && board.a1.hasMoved == false && isChecked == null) {
         const castleTile = document.getElementById("c1");
         castleTile.classList.add("castleHere");
         ruleSetMovesToBoardCoordinates.push("c1");
      }
     //Castling on the right black
-     if (opponentMoves.includes("f8") == false && opponentMoves.includes("g8") == false && board.f8.color == "" && board.g8.color == "" && board.e8.hasMoved == false && board.h8.hasMoved == false) {
+     if (opponentMoves.includes("f8") == false && opponentMoves.includes("g8") == false && board.f8.color == "" && board.g8.color == "" && board.e8.hasMoved == false && board.h8.hasMoved == false && isChecked == null) {
         const castleTile = document.getElementById("g8");
         castleTile.classList.add("castleHere");
         ruleSetMovesToBoardCoordinates.push("g8");
      }
      //Castling on the left black
-     if (opponentMoves.includes("c8") == false && opponentMoves.includes("d8") == false && board.b8.color == "" && board.c8.color == "" && board.d8.color == "" && board.e8.hasMoved == false && board.a8.hasMoved == false) {
+     if (opponentMoves.includes("c8") == false && opponentMoves.includes("d8") == false && board.b8.color == "" && board.c8.color == "" && board.d8.color == "" && board.e8.hasMoved == false && board.a8.hasMoved == false && isChecked == null) {
         const castleTile = document.getElementById("c8");
         castleTile.classList.add("castleHere");
         ruleSetMovesToBoardCoordinates.push("c8");
