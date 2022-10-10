@@ -405,12 +405,11 @@ const renderSwap = (color) => {
 }
 
 const pawnForNewPiece = (event) => {
-    console.log(document.querySelector(".swapHere").id);
     board.swapPawn(document.querySelector(".swapHere").id, event.target.src, event.target.alt);
     clearBoard();
     renderBoard();
     gameInfo.isSwapOn = false;
-    if(gameInfo.turn == white) {
+    if(gameInfo.turn == "white") {
         check("black");
     } else {
         check("white");
@@ -1135,6 +1134,7 @@ const pawnEndline = (piece, color, movedOnTile) => {
 
     if(convertToXY(movedOnTile)[1] == 1 && color == "black") {
         const finalTile = document.getElementById(movedOnTile);
+        finalTile.classList.add("swapHere");
         renderSwap("black");
         return;
     } 
