@@ -1,3 +1,4 @@
+//Initial state of the board that can be copied when the game has to restart
 const resetBoard = {
 
     a1 : { 
@@ -321,7 +322,7 @@ const resetBoard = {
         source: "./Resources/BlackRock.svg"
     },
 
-
+    //Move piece on empty tile
     updateBoard (tile1, tile2) {
         this[tile2].piece = this[tile1].piece;
         this[tile2].color = this[tile1].color;
@@ -331,7 +332,7 @@ const resetBoard = {
         this[tile1].color = "";
         this[tile1].source = "";
         },
-
+    //Used during control for check, during which every move for every piece needs to be run to calculate if it cause a check
     updateBoardForCheck (tile1, tile2) {
         let colorTosave = this[tile2].color;
         let pieceTosave = this[tile2].piece;
@@ -345,14 +346,14 @@ const resetBoard = {
         this[tile1].source = sourceTosave; 
         this[tile1].hasMoved= false;
     },
-
+    //Remove a piece from the board. Used for en passant and to promote pawn
     removePiece(tile) {
         this[tile].piece ="";
         this[tile].color ="";
         this[tile].source ="";
         this[tile].hasMoved ="";
     },
-
+    //Add piece on the board, used for pawn promotion
     addPiece(piece, color, source, hasMoved, tile) {
         this[tile].piece = piece;
         this[tile].color = color;
@@ -364,7 +365,7 @@ const resetBoard = {
         this[tile].source = source;
         this[tile].piece = piece;
     },
-
+    //Used to update board during a castling
     castle(tile) {
         if(tile == "g1") {
             this.g1.color = "white";
@@ -437,7 +438,7 @@ const resetBoard = {
         }
     }
 }
-
+//Board used for the game
 let board = {
 
     a1 : { 
@@ -877,7 +878,7 @@ let board = {
         }
     }
 }
-
+//As per name
 const restartGame = () => {
     board = {...resetBoard};
 
@@ -972,15 +973,15 @@ const restartGame = () => {
         selected.classList.remove("selected");
     }
 }
-
+//Currently only used to store moves in order to know when an en passant can be done
 const history = [];
-
+//Add each move to the history array. Again atm only used for en passant
 const recordHistory = (piece, color, tileTo, tileFrom, wasPieceTaken) => {
 
     history.push({piece: piece, color: color, from: tileFrom, to: tileTo, tookPiece: wasPieceTaken});
 
 }
-
+//Used to swap image source when a pawn is promote
 const swapPiece = [[ "./Resources/WhiteRock.svg",
                     "./Resources/WhiteBishop.svg",
                     "./Resources/WhiteKnight.svg",
@@ -990,7 +991,7 @@ const swapPiece = [[ "./Resources/WhiteRock.svg",
                     "./Resources/BlackKnight.svg",
                     "./Resources/BlackQueen.svg"]];
 
-
+//Display which piece was taken by a specific player 
 const renderSwap = (color) => {
     const swapArea = document.querySelector(".swapPiece");
     gameInfo.isSwapOn = true;
@@ -1018,7 +1019,7 @@ const renderSwap = (color) => {
         });
     }
 }
-
+//Upgrade pawn when it get to the end of the board
 const pawnForNewPiece = (event) => {
     board.swapPawn(document.querySelector(".swapHere").id, event.target.src, event.target.alt);
     clearBoard();
@@ -1036,7 +1037,7 @@ const pawnForNewPiece = (event) => {
 
     return;
 }
-
+//Used to calculate turn and stopping game when a pawn reach the end and has to be promoted
 const gameInfo = {
     turn: "white",
     piecesWhiteTook: [],
@@ -1051,7 +1052,7 @@ const gameInfo = {
         }
     }
 }
-
+//Iterate over the board object and render it in the HTML grid
 const renderBoard = ( ) => {
 
     const tiles = document.querySelectorAll(".tile");
@@ -1069,7 +1070,7 @@ const renderBoard = ( ) => {
     })
 
 }
-
+//Clear the HTML grid before a render is necessary
 const clearBoard = () => {
 
     const tiles = document.querySelectorAll(".tile");
@@ -1081,8 +1082,8 @@ const clearBoard = () => {
     });
 }
 
-renderBoard();
-
+renderBoard(); //Initialize board to start game
+//Use to convert the board cordinate (a2,h3, ...) to XY coordinates to calculate pieces movements more easily
 const convertToXY = (piecePosition) => {
 
     let y = parseInt(piecePosition.charAt(1));
@@ -1106,7 +1107,7 @@ const convertToXY = (piecePosition) => {
             return [8, y];
     }
 }
-
+//Convert XY to board coordinates to be able to render it on the page easily
 const convertXYtoBoardCoordinates= (XYPositions) => {
   
     let y = XYPositions[1];
@@ -1130,7 +1131,7 @@ const convertXYtoBoardCoordinates= (XYPositions) => {
             return "h"+y;
     }
 }
-
+//Store the standard pawn moves
 const pawn = (currentPositionXY, pawnColor) => {
     
     let moves=[];
@@ -1200,7 +1201,7 @@ const pawn = (currentPositionXY, pawnColor) => {
         return moves;
     }
 }
-
+//Calculate which of the standard pawn moves can be performed according to the current state of the board
 const movePawn = (currentPosition, pawnColor) => {
     
     const XYposition = convertToXY(currentPosition); 
@@ -1225,7 +1226,7 @@ const movePawn = (currentPosition, pawnColor) => {
     
     return allowedMoves;
 }
-
+//Standard moves of the knigh
 const knight = (currentPositionXY) => {
     
         const moves = [[currentPositionXY[0]+1, currentPositionXY[1]+2],[currentPositionXY[0]+2, currentPositionXY[1]+1],[currentPositionXY[0]+2, currentPositionXY[1]-1],[currentPositionXY[0]+1, currentPositionXY[1]-2],[currentPositionXY[0]-1, currentPositionXY[1]-2],[currentPositionXY[0]-2, currentPositionXY[1]-1],[currentPositionXY[0]-2, currentPositionXY[1]+1],[currentPositionXY[0]-1, currentPositionXY[1]+2]]
@@ -1233,7 +1234,7 @@ const knight = (currentPositionXY) => {
         const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]>0 && move[1] <9) );
         return regularMoves;
 }
-
+//Standard moves for the king 
 const king = (currentPositionXY) => {
     
     const moves = [[currentPositionXY[0], currentPositionXY[1]+1],[currentPositionXY[0]+1, currentPositionXY[1]+1],[currentPositionXY[0]+1, currentPositionXY[1]],[currentPositionXY[0]+1, currentPositionXY[1]-1],[currentPositionXY[0], currentPositionXY[1]-1],[currentPositionXY[0]-1, currentPositionXY[1]-1],[currentPositionXY[0]-1, currentPositionXY[1]],[currentPositionXY[0]-1, currentPositionXY[1]+1]]
@@ -1241,7 +1242,7 @@ const king = (currentPositionXY) => {
     const regularMoves = moves.filter ( move => (move[0]> 0 && move[0]<9 && move[1]>0 && move[1] <9) );
     return regularMoves;
 }
-
+//Given a piece color calculate all the possible moves that a player can perform. Use for check and checkmate controls
 const findOpponentAllPossibleMoves = (color) => {
 
     if(color == "black") {
@@ -1299,7 +1300,7 @@ const findOpponentAllPossibleMoves = (color) => {
     }
 
 }
-
+//Calculate king moves according to current board state
 const moveKing = (currentPosition, pawnColor) => {
    
     const XYposition = convertToXY(currentPosition); 
@@ -1340,7 +1341,7 @@ const moveKing = (currentPosition, pawnColor) => {
     return allowedMoves;
 }
 
-
+//Calculate knight moves according to current board state
 const moveKnight = (currentPosition, pawnColor) => {
     
     const XYposition = convertToXY(currentPosition); 
@@ -1352,7 +1353,7 @@ const moveKnight = (currentPosition, pawnColor) => {
 
     return allowedMoves;
 }
-
+//Store bishop stamdard moves and calculate which ones are regular according to current board state
 const moveBishop = (currentPosition, pieceColor) => {
     
     const possibleMoves = [];
@@ -1432,7 +1433,7 @@ const moveBishop = (currentPosition, pieceColor) => {
 
     return possibleMoves;
 }
-
+//Store rock stamdard moves and calculate which ones are regular according to current board state
 const moveRock = (currentPosition, pieceColor) => {
     
     const possibleMoves = [];
@@ -1512,7 +1513,7 @@ const moveRock = (currentPosition, pieceColor) => {
 
     return possibleMoves;
 }
-
+//Just calls moveRock and moveBishop to calculate regular moves
 const moveQueen = (currentPosition, pieceColor) => {
     
     let moves = moveBishop(currentPosition, pieceColor);
@@ -1521,7 +1522,7 @@ const moveQueen = (currentPosition, pieceColor) => {
     return moves.concat(moves2);
 
 }
-
+//When the regular moves for a selected piece are calculate the function display them on the board
 const renderMoves = (possibleMoves) => {
 
     const tiles = document.querySelectorAll(".tile");
@@ -1534,7 +1535,7 @@ const renderMoves = (possibleMoves) => {
     }
 
 }
-
+//When a piece has moved or another one is selected clear the previous piece moves which were rendered on the board
 const clearActiveSelectedTiles = () => {
 
     const activeTiles = document.querySelectorAll(".active");
@@ -1544,7 +1545,7 @@ const clearActiveSelectedTiles = () => {
     selectedPiece.classList.remove("selected");
 
 }
-
+//Display which pieces were taken my a player in the player section
 const renderTakenPieces = (piece, color) => {
     
     let renderingDiv;
@@ -1563,7 +1564,7 @@ const renderTakenPieces = (piece, color) => {
         renderingDiv.append(pieceToRender);
     }
 }
-
+//Given a color find where that specific king is on the board. Use for check and checkmate
 const findKingPosition = (color) => {
 
     for (key in board) {
@@ -1572,7 +1573,7 @@ const findKingPosition = (color) => {
         }
     }
 }
-
+//Given a color find all the pieces of that color on the board. Used to calculate check, checkmate and avoid that a piece move if it cause check
 const findPiecesOfSpecificColor = (color) => {
 
 	const piecesArr = [];
@@ -1585,7 +1586,7 @@ const findPiecesOfSpecificColor = (color) => {
   }
   return piecesArr;
 }
-
+//Calculate if a player is another check after the previous player has moved
 const check = (colorThatMovesLast) => {
     
     if(colorThatMovesLast == "white") {
@@ -1653,7 +1654,7 @@ const check = (colorThatMovesLast) => {
     }
 
 }
-
+//Avoid a piece can be moved if it cause the player king to be checked
 const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
    
     const movesThatCauseCheck = [];
@@ -1697,7 +1698,7 @@ const checkIfMoved = (currentPosition, colorPiece, arrayOfMoves) => {
 
     return movesToCheck;
 }
-
+//Cancel the rendered check if it has been stopped
 const clearChecked = () => {
 
     const checkedKing = document.querySelector(".checked");
@@ -1709,78 +1710,7 @@ const clearChecked = () => {
     return;
 }
 
-const checkmate = (pieceThatMovedLast) => {
-
-    let movesThatAvoidCheck = [];
-
-    if (pieceThatMovedLast == "white") {
-        
-        const blackPiecesPositions = findPiecesOfSpecificColor("black");
-        
-        blackPiecesPositions.forEach ( position => {
-            const boardPosition = Object.keys(position)[0]; console.log(boardPosition);
-            const piece = Object.values(position)[0];
-            switch(piece) {
-                case("pawn"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", movePawn(position, "black")));
-                    break;
-                case("rock"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveRock(boardPosition, "black")));
-                    break;
-                case("knight"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKnight(boardPosition, "black")));
-                    break;
-                case("bishop"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveBishop(boardPosition, "black")));
-                    break;
-                case("queen"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveQueen(boardPosition, "black")));
-                    break;
-                case("king"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKing(boardPosition, "black")));
-                    break;
-            }
-        });
-
-        if(movesThatAvoidCheck.length < 1) {
-            console.log("checkmate");
-        }
-
-    } else {
-        const whitePiecesPositions = findPiecesOfSpecificColor("white");
-        
-        whitePiecesPositions.forEach ( position => {
-            const boardPosition = Object.keys(position)[0];
-            const piece = Object.values(position)[0];
-            switch(piece) {
-                case("pawn"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", movePawn(boardPosition, "white")));
-                    break;
-                case("rock"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveRock(boardPosition, "white")));
-                    break;
-                case("knight"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKnight(boardPosition, "white")));
-                    break;
-                case("bishop"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveBishop(boardPosition, "white")));
-                    break;
-                case("queen"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveQueen(boardPosition, "white")));
-                    break;
-                case("king"):
-                    movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKing(boardPosition, "white")));
-                    break;
-            }
-        });
-
-        if(movesThatAvoidCheck.length < 1) {
-            console.log("checkmate");
-        }
-    }
-}
-
-
+//Calculate if a pawn reached the end of the board
 const pawnEndline = (piece, color, movedOnTile) => {
 
     if(piece != "pawn") {
@@ -1801,7 +1731,7 @@ const pawnEndline = (piece, color, movedOnTile) => {
         return;
     } 
 }
-
+//Calculate checkmate
 const checkMate = (colorToCheck) => {
     
     const allPieces = findPiecesOfSpecificColor(colorToCheck);
@@ -1841,7 +1771,7 @@ const checkMate = (colorToCheck) => {
         alert("checkmate");
     }
 }
-
+//Main function that fire after each piece has been clicked
 const pieceClicled = (event) => {
 
     if(gameInfo.isSwapOn == true) {
@@ -1982,11 +1912,11 @@ const pieceClicled = (event) => {
     
 
 }
-
+//Attach event listenr to every tile on the board
 const tiles = document.querySelectorAll(".tile");
 for (let i=0; i<tiles.length; i++) {
         tiles[i].addEventListener("click", pieceClicled);
 }
-
+//Restart button
 const restart = document.querySelector(".restart");
 restart.addEventListener("click", restartGame);
