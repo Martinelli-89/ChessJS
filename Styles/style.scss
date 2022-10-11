@@ -10,6 +10,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Rock Salt';
+
+    @media screen and (min-width: 600px) {
+        background-image: url(https://i.pinimg.com/originals/c4/88/2e/c4882e6304e6ba64b42527191f47143d.jpg);
+    }
 }
 
 .board {
@@ -27,6 +31,11 @@ body {
             "a3 b3 c3 d3 e3 f3 g3 h3"
             "a2 b2 c2 d2 e2 f2 g2 h2"
             "a1 b1 c1 d1 e1 f1 g1 h1";
+
+            @media screen and (min-width: 600px) {
+                width: 86vw;
+                height: 86vw;
+            }
 
 
     .white {
@@ -326,6 +335,11 @@ body {
     justify-content: space-around;
     color: #574f50;
 
+    @media screen and (min-width: 600px) {
+        height: 10vh;
+        margin-top: 0vh;
+    }
+
     #white, #black {
 
         display: flex;
@@ -382,6 +396,11 @@ body {
     height: 9vh;
     justify-content: space-evenly;
 
+    @media screen and (min-width: 600px) {
+        margin-top: 2vh;
+        height: 8vh;
+    }
+
     .pieceToSwap {
         max-height: 90%;
         max-width: 90%;
@@ -393,9 +412,20 @@ body {
     background-color: #d0dff4 ;
     font-size: 0.8rem;
     border-radius: 25px;
-    width: 140%;
-    height: 120%;
+    width: 40vw;
+    height: 4vh;
     text-align: center;
     color: #445e84;
+
+    @media screen and (min-width: 600px) {
+        transform: translateY(6vh);
+    }
+
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
