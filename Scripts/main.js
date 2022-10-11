@@ -1288,7 +1288,7 @@ const pieceClicled = (event) => {
         return;
     } 
     //En passant
-    if(event.target.classList.contains("active")) {
+    if(event.target.classList.contains("active") && board[document.querySelector(".selected").id].piece == "pawn" && convertToXY(event.target.id)[0] != convertToXY(document.querySelector(".selected").id)[0]) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,event.target.id, document.querySelector(".selected").id, false);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color,event.target.id );
@@ -1310,7 +1310,7 @@ const pieceClicled = (event) => {
          return;
     }
     //Moved on empty tile
-    if(event.target.classList.contains("active") && board[document.querySelector(".selected").id].piece == "pawn" && convertToXY(event.target.id)[0] != convertToXY(document.querySelector(".selected").id)[0]) {
+    if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
