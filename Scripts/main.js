@@ -1802,6 +1802,46 @@ const pawnEndline = (piece, color, movedOnTile) => {
     } 
 }
 
+const checkMate = (colorToCheck) => {
+    
+    const allPieces = findPiecesOfSpecificColor(colorToCheck);
+
+    let possibleMoves = [];
+    let temp;
+
+    allPieces.forEach( piecePosition => { 
+        switch(Object.values(piecePosition)[0]) {
+            case("pawn"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, movePawn(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+            case("rock"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveRock(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+            case("bishop"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveBishop(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+            case("knight"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveKnight(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+            case("queen"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveQueen(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+            case("king"):
+                temp = (checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveKing(Object.keys(piecePosition)[0], colorToCheck)));
+                possibleMoves = possibleMoves.concat(temp);
+                break;
+        }
+    });
+    if(possibleMoves.length<1) {
+        alert("checkmate");
+    }
+}
+
 const pieceClicled = (event) => {
 
     if(gameInfo.isSwapOn == true) {
@@ -1820,6 +1860,11 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
+        if(colorThatMoved == "white") {
+            checkMate("black");
+        } else {
+            checkMate("white");
+        }
         return;
     } 
     //En passant
@@ -1841,6 +1886,11 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
+        if(colorThatMoved == "white") {
+            checkMate("black");
+        } else {
+            checkMate("white");
+        }
     
          return;
     }
@@ -1856,6 +1906,11 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
+        if(colorThatMoved == "white") {
+            checkMate("black");
+        } else {
+            checkMate("white");
+        }
 
         return;
     }
@@ -1872,6 +1927,11 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
+        if(colorThatMoved == "white") {
+            checkMate("black");
+        } else {
+            checkMate("white");
+        }
         return;
     }
     //Clear tiles that were made active with previous click
