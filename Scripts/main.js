@@ -1,4 +1,4 @@
-const board = {
+const resetBoard = {
 
     a1 : { 
         piece: "rock",
@@ -436,6 +436,527 @@ const board = {
             this.a8.hasMoved = true;
         }
     }
+}
+
+let board = {
+
+    a1 : { 
+        piece: "rock",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteRock.svg"
+    },
+    b1 : { 
+        piece: "knight",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteKnight.svg"
+    },
+    c1 : { 
+        piece: "bishop",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteBishop.svg"
+    },
+    d1 : { 
+        piece: "queen",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteQueen.svg"
+    },
+    e1 : { 
+        piece: "king",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteKing.svg"
+    },
+    f1 : { 
+        piece: "bishop",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteBishop.svg"
+    },
+    g1 : { 
+        piece: "knight",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteKnight.svg"
+    },
+    h1 : { 
+        piece: "rock",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhiteRock.svg"
+    },
+    a2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    b2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    c2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    d2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    e2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    f2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    g2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    h2 : { 
+        piece: "pawn",
+        color: "white",
+        hasMoved : false,
+        source: "./Resources/WhitePawn.svg"
+    },
+    a3 : { 
+        piece: "",
+        color: ""
+    },
+    b3 : { 
+        piece: "",
+        color: ""
+    },
+    c3 : { 
+        piece: "",
+        color: ""
+    },
+    d3 : { 
+        piece: "",
+        color: ""
+    },
+    e3 : { 
+        piece: "",
+        color: ""
+    },
+    f3 : { 
+        piece: "",
+        color: ""
+    },
+    g3 : { 
+        piece: "",
+        color: ""
+    },
+    h3 : { 
+        piece: "",
+        color: ""
+    },
+    a4 : { 
+        piece: "",
+        color: ""
+    },
+    b4 : { 
+        piece: "",
+        color: ""
+    },
+    c4 : { 
+        piece: "",
+        color: ""
+    },
+    d4 : { 
+        piece: "",
+        color: ""
+    },
+    e4 : { 
+        piece: "",
+        color: ""
+    },
+    f4 : { 
+        piece: "",
+        color: ""
+    },
+    g4 : { 
+        piece: "",
+        color: ""
+    },
+    h4 : { 
+        piece: "",
+        color: ""
+    },
+    a5 : { 
+        piece: "",
+        color: ""
+    },
+    b5 : { 
+        piece: "",
+        color: ""
+    },
+    c5 : { 
+        piece: "",
+        color: ""
+    },
+    d5 : { 
+        piece: "",
+        color: ""
+    },
+    e5 : { 
+        piece: "",
+        color: ""
+    },
+    f5 : { 
+        piece: "",
+        color: ""
+    },
+    g5 : { 
+        piece: "",
+        color: ""
+    },
+    h5 : { 
+        piece: "",
+        color: ""
+    },
+    a6 : { 
+        piece: "",
+        color: ""
+    },
+    b6 : { 
+        piece: "",
+        color: ""
+    },
+    c6 : { 
+        piece: "",
+        color: ""
+    },
+    d6 : { 
+        piece: "",
+        color: ""
+    },
+    e6 : { 
+        piece: "",
+        color: ""
+    },
+    f6 : { 
+        piece: "",
+        color: ""
+    },
+    g6 : { 
+        piece: "",
+        color: ""
+    },
+    h6 : { 
+        piece: "",
+        color: ""
+    },
+    a7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    b7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    c7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    d7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    e7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    f7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    g7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    h7 : { 
+        piece: "pawn",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackPawn.svg"
+    },
+    a8 : { 
+        piece: "rock",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackRock.svg"
+    },
+    b8 : { 
+        piece: "knight",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackKnight.svg"
+    },
+    c8 : { 
+        piece: "bishop",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackBishop.svg"
+    },
+    d8 : { 
+        piece: "queen",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackQueen.svg"
+    },
+    e8 : { 
+        piece: "king",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackKing.svg"
+    },
+    f8 : { 
+        piece: "bishop",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackBishop.svg"
+    },
+    g8 : { 
+        piece: "knight",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackKnight.svg"
+    },
+    h8 : { 
+        piece: "rock",
+        color: "black",
+        hasMoved : false,
+        source: "./Resources/BlackRock.svg"
+    },
+
+
+    updateBoard (tile1, tile2) {
+        this[tile2].piece = this[tile1].piece;
+        this[tile2].color = this[tile1].color;
+        this[tile2].source = this[tile1].source;
+        this[tile2].hasMoved = true;
+        this[tile1].piece = "";
+        this[tile1].color = "";
+        this[tile1].source = "";
+        },
+
+    updateBoardForCheck (tile1, tile2) {
+        let colorTosave = this[tile2].color;
+        let pieceTosave = this[tile2].piece;
+        let sourceTosave = this[tile2].source;
+        this[tile2].piece = this[tile1].piece;
+        this[tile2].color = this[tile1].color;
+        this[tile2].source = this[tile1].source;
+        this[tile2].hasMoved = false;
+        this[tile1].piece = pieceTosave;
+        this[tile1].color = colorTosave;
+        this[tile1].source = sourceTosave; 
+        this[tile1].hasMoved= false;
+    },
+
+    removePiece(tile) {
+        this[tile].piece ="";
+        this[tile].color ="";
+        this[tile].source ="";
+        this[tile].hasMoved ="";
+    },
+
+    addPiece(piece, color, source, hasMoved, tile) {
+        this[tile].piece = piece;
+        this[tile].color = color;
+        this[tile].source = source;
+        this[tile].hasMoved = hasMoved;
+    },
+
+    swapPawn(tile, source, piece) {
+        this[tile].source = source;
+        this[tile].piece = piece;
+    },
+
+    castle(tile) {
+        if(tile == "g1") {
+            this.g1.color = "white";
+            this.g1.piece = "king";
+            this.g1.source = "./Resources/WhiteKing.svg"
+            this.g1.hasMoved = true;
+            this.f1.color = "white";
+            this.f1.piece = "rock";
+            this.f1.source = "./Resources/WhiteRock.svg"
+            this.f1.hasMoved = true;
+            this.e1.color = "";
+            this.e1.piece = "";
+            this.e1.source = ""
+            this.e1.hasMoved = true;
+            this.h1.color = "";
+            this.h1.piece = "";
+            this.h1.source = ""
+            this.h1.hasMoved = true;
+        } else if(tile == "c1") {
+            this.c1.color = "white";
+            this.c1.piece = "king";
+            this.c1.source = "./Resources/WhiteKing.svg"
+            this.c1.hasMoved = true;
+            this.d1.color = "white";
+            this.d1.piece = "rock";
+            this.d1.source = "./Resources/WhiteRock.svg"
+            this.d1.hasMoved = true;
+            this.e1.color = "";
+            this.e1.piece = "";
+            this.e1.source = ""
+            this.e1.hasMoved = true;
+            this.a1.color = "";
+            this.a1.piece = "";
+            this.a1.source = ""
+            this.a1.hasMoved = true;
+        } else if(tile == "g8") {
+            this.g8.color = "black";
+            this.g8.piece = "king";
+            this.g8.source = "./Resources/BlackKing.svg"
+            this.g8.hasMoved = true;
+            this.f8.color = "black";
+            this.f8.piece = "rock";
+            this.f8.source = "./Resources/BlackRock.svg"
+            this.f8.hasMoved = true;
+            this.e8.color = "";
+            this.e8.piece = "";
+            this.e8.source = ""
+            this.e8.hasMoved = true;
+            this.h8.color = "";
+            this.h8.piece = "";
+            this.h8.source = ""
+            this.h8.hasMoved = true;
+        } else {
+            this.c8.color = "black";
+            this.c8.piece = "king";
+            this.c8.source = "./Resources/BlackKing.svg"
+            this.c8.hasMoved = true;
+            this.d8.color = "black";
+            this.d8.piece = "rock";
+            this.d8.source = "./Resources/BlackRock.svg"
+            this.d8.hasMoved = true;
+            this.e8.color = "";
+            this.e8.piece = "";
+            this.e8.source = ""
+            this.e8.hasMoved = true;
+            this.a8.color = "";
+            this.a8.piece = "";
+            this.a8.source = ""
+            this.a8.hasMoved = true;
+        }
+    }
+}
+
+const restartGame = () => {
+    board = {...resetBoard};
+
+    board = {
+        ...board,
+        a1:{...board.a1},
+        b1:{...board.b1},
+        c1:{...board.c1},
+        d1:{...board.d1},
+        e1:{...board.e1},
+        f1:{...board.f1},
+        g1:{...board.g1},
+        h1:{...board.h1},
+        a2:{...board.a2},
+        b2:{...board.b2},
+        c2:{...board.c2},
+        d2:{...board.d2},
+        e2:{...board.e2},
+        f2:{...board.f2},
+        g2:{...board.g2},
+        h2:{...board.h2},
+        a3:{...board.a3},
+        b3:{...board.b3},
+        c3:{...board.c3},
+        d3:{...board.d3},
+        e3:{...board.e3},
+        f3:{...board.f3},
+        g3:{...board.g3},
+        h3:{...board.h3},
+        a4:{...board.a4},
+        b4:{...board.b4},
+        c4:{...board.c4},
+        d4:{...board.d4},
+        e4:{...board.e4},
+        f4:{...board.f4},
+        g4:{...board.g4},
+        h4:{...board.h4},
+        a5:{...board.a5},
+        b5:{...board.b5},
+        c5:{...board.c5},
+        d5:{...board.d5},
+        e5:{...board.e5},
+        f5:{...board.f5},
+        g5:{...board.g5},
+        h5:{...board.h5},
+        a6:{...board.a6},
+        b6:{...board.b6},
+        c6:{...board.c6},
+        d6:{...board.d6},
+        e6:{...board.e6},
+        f6:{...board.f6},
+        g6:{...board.g6},
+        h6:{...board.h6},
+        a7:{...board.a7},
+        b7:{...board.b7},
+        c7:{...board.c7},
+        d7:{...board.d7},
+        e7:{...board.e7},
+        f7:{...board.f7},
+        g7:{...board.g7},
+        h7:{...board.h7},
+        a8:{...board.a8},
+        b8:{...board.b8},
+        c8:{...board.c8},
+        e8:{...board.e8},
+        d8:{...board.d8},
+        f8:{...board.f8},
+        g8:{...board.g8},
+        h8:{...board.h8}
+    };
+
+    clearBoard();
+    renderBoard();
+    gameInfo.turn = "white";
+    
+    const pieceWhiteTook = document.querySelector(".pieceWhiteTook");
+    pieceWhiteTook.innerHTML="";
+    const pieceBlackTook = document.querySelector(".pieceBlackTook");
+    pieceBlackTook.innerHTML="";
 }
 
 const history = [];
@@ -1392,3 +1913,6 @@ const tiles = document.querySelectorAll(".tile");
 for (let i=0; i<tiles.length; i++) {
         tiles[i].addEventListener("click", pieceClicled);
 }
+
+const restart = document.querySelector(".restart");
+restart.addEventListener("click", restartGame);
