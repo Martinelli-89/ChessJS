@@ -604,6 +604,8 @@ const pawn = (currentPositionXY, pawnColor) => {
         const left = [currentPositionXY[0]-1, currentPositionXY[1]+1];
         const center = [currentPositionXY[0], currentPositionXY[1]+1];
         const right = [currentPositionXY[0]+1, currentPositionXY[1]+1];
+        const enPassantRight = [currentPositionXY[0]+1, currentPositionXY[1]+1]
+        const enPassantLeft = [currentPositionXY[0]-1, currentPositionXY[1]+1]
 
         if (left[0]> 0 && left[1]<9) {
             if(board[convertXYtoBoardCoordinates(left)].color == "black") {
@@ -620,11 +622,22 @@ const pawn = (currentPositionXY, pawnColor) => {
                 moves.push(right);
             }
         }
+        let controlObj = {piece: "pawn", color:"black", from: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]+2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]]), tookPiece: false};
+        if(currentPositionXY[1] == 5 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)){
+            moves.push(enPassantRight);
+        }
+        controlObj = {piece: "pawn", color:"black", from: convertXYtoBoardCoordinates([currentPositionXY[0]-1,currentPositionXY[1]+2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]-1,currentPositionXY[1]]), tookPiece: false};
+        if(currentPositionXY[1] == 5 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)) {
+            moves.push(enPassantLeft);
+        }
+
         return moves;
     } else {
         const left = [currentPositionXY[0]-1, currentPositionXY[1]-1];
         const center = [currentPositionXY[0], currentPositionXY[1]-1];
         const right = [currentPositionXY[0]+1, currentPositionXY[1]-1];
+        const enPassantRight = [currentPositionXY[0]+1, currentPositionXY[1]-1]
+        const enPassantLeft = [currentPositionXY[0]-1, currentPositionXY[1]-1]
 
         if (left[0]> 0 && left[1]>0) {
             if(board[convertXYtoBoardCoordinates(left)].color == "white") {
@@ -640,6 +653,14 @@ const pawn = (currentPositionXY, pawnColor) => {
             if(board[convertXYtoBoardCoordinates(right)].color == "white") {
                 moves.push(right);
             }
+        }
+        let controlObj = {piece: "pawn", color:"white", from: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]-2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]]), tookPiece: false};
+        if(currentPositionXY[1] == 4 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)){
+            moves.push(enPassantRight);
+        }
+        controlObj = {piece: "pawn", color:"white", from: convertXYtoBoardCoordinates([currentPositionXY[0]-1,currentPositionXY[1]-2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]-1,currentPositionXY[1]]), tookPiece: false};
+        if(currentPositionXY[1] == 4 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)) {
+            moves.push(enPassantLeft);
         }
         return moves;
     }
@@ -1255,7 +1276,7 @@ const pieceClicled = (event) => {
     //Castling
     if(event.target.classList.contains("castleHere")) { 
         const colorThatMoved = board[document.querySelector(".selected").id].color;
-        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.id, false);
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
         board.castle(event.target.id);
         clearBoard();
         renderBoard();
@@ -1269,7 +1290,7 @@ const pieceClicled = (event) => {
     //Move on empty tile
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
-        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.id, false);
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
@@ -1283,7 +1304,7 @@ const pieceClicled = (event) => {
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
-        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.parentElement.id, true);
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color, event.target.parentElement.id, document.querySelector(".selected").id, true);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.parentElement.id );
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
