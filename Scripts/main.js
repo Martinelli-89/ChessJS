@@ -1543,6 +1543,10 @@ const clearActiveSelectedTiles = () => {
 
     activeTiles.forEach( tile => tile.classList.remove("active"));
     selectedPiece.classList.remove("selected");
+    if(document.querySelector(".castleHere")) {
+        const castle = document.querySelector(".castleHere");
+        castle.classList.remove("castleHere");
+    }
 
 }
 //Display which pieces were taken my a player in the player section
@@ -1785,7 +1789,6 @@ const pieceClicled = (event) => {
         board.castle(event.target.id);
         clearBoard();
         renderBoard();
-        clearActiveSelectedTiles();
         event.target.classList.remove("castleHere");
         gameInfo.updateTurn();
         clearChecked();
@@ -1795,6 +1798,7 @@ const pieceClicled = (event) => {
         } else {
             checkMate("white");
         }
+        clearActiveSelectedTiles();
         return;
     } 
     //En passant
@@ -1812,7 +1816,6 @@ const pieceClicled = (event) => {
         }
         clearBoard();
         renderBoard();
-        clearActiveSelectedTiles();
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
@@ -1821,6 +1824,7 @@ const pieceClicled = (event) => {
         } else {
             checkMate("white");
         }
+        clearActiveSelectedTiles();
     
          return;
     }
@@ -1832,7 +1836,6 @@ const pieceClicled = (event) => {
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
         renderBoard();
-        clearActiveSelectedTiles();
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
@@ -1841,6 +1844,7 @@ const pieceClicled = (event) => {
         } else {
             checkMate("white");
         }
+        clearActiveSelectedTiles();
 
         return;
     }
@@ -1853,7 +1857,6 @@ const pieceClicled = (event) => {
         board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
         clearBoard();
         renderBoard();
-        clearActiveSelectedTiles();
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
@@ -1862,6 +1865,7 @@ const pieceClicled = (event) => {
         } else {
             checkMate("white");
         }
+        clearActiveSelectedTiles();
         return;
     }
     //Clear tiles that were made active with previous click
