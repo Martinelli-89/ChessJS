@@ -957,6 +957,20 @@ const restartGame = () => {
     pieceWhiteTook.innerHTML="";
     const pieceBlackTook = document.querySelector(".pieceBlackTook");
     pieceBlackTook.innerHTML="";
+    if (document.querySelector(".checked")) {
+        const check = document.querySelector(".checked");
+        check.classList.remove("checked");
+    }
+    if (document.querySelector(".active")) {
+        const active = document.querySelectorAll(".active");
+        active.forEach(element => {
+            element.classList.remove("active");
+        });
+    }
+    if (document.querySelector(".selected")) {
+        const selected = document.querySelector(".selected");
+        selected.classList.remove("selected");
+    }
 }
 
 const history = [];

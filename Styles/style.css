@@ -1,25 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("../Resources/phoneWallpaper.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Rock Salt";
 }
 
 .board {
-  width: 100vw;
-  height: 100vw;
+  padding-top: 3vh;
+  margin: 2vw;
+  width: 96vw;
+  height: 96vw;
   display: grid;
   grid-template-areas: "a8 b8 c8 d8 e8 f8 g8 h8" "a7 b7 c7 d7 e7 f7 g7 h7" "a6 b6 c6 d6 e6 f6 g6 h6" "a5 b5 c5 d5 e5 f5 g5 h5" "a4 b4 c4 d4 e4 f4 g4 h4" "a3 b3 c3 d3 e3 f3 g3 h3" "a2 b2 c2 d2 e2 f2 g2 h2" "a1 b1 c1 d1 e1 f1 g1 h1";
 }
 .board .white {
-  background-color: rgb(221, 201, 245);
-  min-width: 12vw;
-  min-height: 12vw;
+  background-color: #d0dff4;
+  min-width: 11vw;
+  min-height: 11vw;
 }
 .board .black {
-  background-color: rgb(72, 69, 165);
-  min-width: 12vw;
-  min-height: 12vw;
+  background-color: #5a79a9;
+  min-width: 11vw;
+  min-height: 11vw;
 }
 .board #a8 {
   grid-area: a8;
@@ -215,7 +222,7 @@ body {
 }
 
 .active {
-  box-shadow: inset 0px 0px 0px 5px rgb(4, 151, 80);
+  box-shadow: inset 0px 0px 0px 3px rgb(39, 210, 127);
 }
 
 .tile {
@@ -236,18 +243,25 @@ body {
   margin-top: 2vh;
   align-items: center;
   justify-content: space-around;
+  color: #574f50;
 }
 .GameInfo #white, .GameInfo #black {
   display: flex;
   flex-direction: column;
   width: 45%;
   height: 100%;
-  border: 1px solid red;
   justify-content: center;
   align-items: center;
 }
+.GameInfo #white {
+  padding-top: 1vh;
+  font-size: 1.2rem;
+}
+.GameInfo #black {
+  padding-top: 1vh;
+  font-size: 1.2rem;
+}
 .GameInfo #white .pieceWhiteTook {
-  border: 1px solid red;
   width: 100%;
   height: 100%;
   display: flex;
@@ -255,7 +269,6 @@ body {
   align-items: center;
 }
 .GameInfo #black .pieceBlackTook {
-  border: 1px solid red;
   width: 100%;
   height: 100%;
   display: flex;
@@ -265,10 +278,32 @@ body {
 }
 
 .pieceTaken {
-  width: 5.5vw;
-  height: 5.5vw;
+  width: 6vw;
+  height: 6vw;
 }
 
 .checked {
-  box-shadow: inset 0px 0px 0px 5px rgb(255, 0, 0);
+  box-shadow: inset 0px 0px 0px 3px rgb(237, 90, 77);
+}
+
+.swapPiece {
+  display: flex;
+  width: 80vw;
+  height: 9vh;
+  justify-content: space-evenly;
+}
+.swapPiece .pieceToSwap {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+.restart {
+  transform: translateY(8vh);
+  background-color: #d0dff4;
+  font-size: 0.8rem;
+  border-radius: 25px;
+  width: 140%;
+  height: 120%;
+  text-align: center;
+  color: #445e84;
 }/*# sourceMappingURL=style.css.map */

@@ -1,11 +1,11 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86 86" width="86" height="86">
-	<title>New Project</title>
+	<title>BlackBishop-svg</title>
 	<defs>
-		<image  width="86" height="86" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAABWAQMAAABvmPO0AAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAARSURBVHicY2AYBaNgFIx0AAAECAAB5UCkGAAAAABJRU5ErkJggg=="/>
-		<image  width="47" height="69" id="img2" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAABFCAMAAADtlk+iAAAAAXNSR0IB2cksfwAAAFdQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADpeTbQAAAB10Uk5TABCfv1DP/yCA77CgMEBwkMDff1+PYPDQ4D9Pr2/uHwroAAAB60lEQVR4nK2W2ZaDIAyGRW3EBbe6tNO+/3NOHUCWhArnTC7l84eELGQZZSwvSnIhYDcAqOJx/sGBR+NVffBNNN8eONyi5UFamnw0r+WhS5MHkSYPfZo8DGnyMKbJw5QmH5VBrc1fp6gjD22aPNRp8tcHaj3+4gY6D7+6geIb3813Dxc+bvMLoIRF8oZnRwPwEhbLnxcgcY/H8rC6Sw6/YlwnUA4EP2FcdZQeCJ6Sl8cxtyK+y2/sz1ezYhUoERyVDYP5YHVIP3NOb20hq+PVGJfBv9mfmMZRpml5NwynA8TxRyIMZwfgmBfUvmWQ3/3gWD5RvLyr0f/MAvyW0bwI8G3g1tcAr0oJHZPT/CML8D0dfx2HPXB+n9eFhfxVFcRoGcSfDcDbOHTvel9Tc1/5XX/Pqi2GtxoWpxaYk/3uwHQ8yKvs+TN7HcmdrwzFOuRr1A8jfh2wJkg/fHHl9EbSTXAusb7xfhmHkoVoaZXouTQhLtD/tGop6lf0fkzOgOuJL21W/dIMtPfrU9tTsbyfeM/7WfaqfNli99spfz8N/LTWdqm1Et15Kop5Xgon5RSeY5o0dZhIXCdcGUefs04nZVuKTpS8eRB0a01G2TJG87Zj5eC0kWZ1InxMug09ZTshU65Hj2LGmz4hDX8BOlos/lmfxOsAAAAASUVORK5CYII="/>
+		<image width="86" height="86" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAABWAQMAAABvmPO0AAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAARSURBVHicY2AYBaNgFIx0AAAECAAB5UCkGAAAAABJRU5ErkJggg=="/>
+		<image  width="86" height="86" id="img2" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAABWAQMAAABvmPO0AAAAAXNSR0IB2cksfwAAAAZQTFRFAAAAJh4asIRFOAAAAAJ0Uk5TAP9bkSK1AAAAwUlEQVR4nL3SMQ6DMAwF0CAGxlygUm7SHC3pzbhJcwTGDIjfROJjUxKJpfX0JCT7x8aYf9SinIWD8tjx1LFd23Yd+47D1jbaHoCmxy8/GLn4qcxOFhhadsAo3ibaY7PKjg5Ytb04eyYCchAv2kCk09kzPd9wvOfIbOZsc7XHC7KHN9bD5TW7y97AP6vslqPqXeQYgBzbcuq1nPoSlI+cuZw1sn10u8upj2E1AofVaMxZIyMp7y1dsvLEaEKiexl/WR9VD8xEWIL9IgAAAABJRU5ErkJggg=="/>
 	</defs>
 	<style>
 	</style>
-	<use id="Background" href="#img1" x="0" y="0"/>
-	<use id="Layer 1" href="#img2" x="19" y="8"/>
+	<use id="img1" href="#img1" transform="matrix(1,0,0,1,0,0)"/>
+	<use id="img2" href="#img2" x="0" y="0"/>
 </svg>
