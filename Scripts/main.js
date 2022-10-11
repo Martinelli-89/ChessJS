@@ -438,6 +438,14 @@ const board = {
     }
 }
 
+const history = [];
+
+const recordHistory = (piece, color, tileTo, tileFrom, wasPieceTaken) => {
+
+    history.push({piece: piece, color: color, from: tileFrom, to: tileTo, tookPiece: wasPieceTaken});
+
+}
+
 const swapPiece = [[ "./Resources/WhiteRock.svg",
                     "./Resources/WhiteBishop.svg",
                     "./Resources/WhiteKnight.svg",
@@ -1247,6 +1255,7 @@ const pieceClicled = (event) => {
     //Castling
     if(event.target.classList.contains("castleHere")) { 
         const colorThatMoved = board[document.querySelector(".selected").id].color;
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.id, false);
         board.castle(event.target.id);
         clearBoard();
         renderBoard();
@@ -1255,12 +1264,12 @@ const pieceClicled = (event) => {
         gameInfo.updateTurn();
         clearChecked();
         check(colorThatMoved);
-
         return;
     } 
     //Move on empty tile
     if(event.target.classList.contains("active")) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.id, false);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
         board.updateBoard(document.querySelector(".selected").id, event.target.id);
         clearBoard();
@@ -1274,6 +1283,7 @@ const pieceClicled = (event) => {
     }
     //Move piece and take another piece
     if(event.target.parentElement.classList.contains("active")) {
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,document.querySelector(".selected").id, event.target.parentElement.id, true);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.parentElement.id );
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         renderTakenPieces(board[event.target.parentElement.id].piece,board[event.target.parentElement.id].color);
