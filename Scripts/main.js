@@ -1287,8 +1287,30 @@ const pieceClicled = (event) => {
         check(colorThatMoved);
         return;
     } 
-    //Move on empty tile
+    //En passant
     if(event.target.classList.contains("active")) {
+        const colorThatMoved = board[document.querySelector(".selected").id].color;
+        recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color,event.target.id, document.querySelector(".selected").id, false);
+        pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color,event.target.id );
+        board.updateBoard(document.querySelector(".selected").id, event.target.id);
+        if(colorThatMoved == "white") {
+            const targetTile = convertToXY(event.target.id);
+            board.removePiece(convertXYtoBoardCoordinates([targetTile[0], targetTile[1]-1]));
+        } else {
+            const targetTile = convertToXY(event.target.id);
+            board.removePiece(convertXYtoBoardCoordinates([targetTile[0], targetTile[1]+1]));
+        }
+        clearBoard();
+        renderBoard();
+        clearActiveSelectedTiles();
+        gameInfo.updateTurn();
+        clearChecked();
+        check(colorThatMoved);
+    
+         return;
+    }
+    //Moved on empty tile
+    if(event.target.classList.contains("active") && board[document.querySelector(".selected").id].piece == "pawn" && convertToXY(event.target.id)[0] != convertToXY(document.querySelector(".selected").id)[0]) {
         const colorThatMoved = board[document.querySelector(".selected").id].color;
         recordHistory(board[document.querySelector(".selected").id].piece,board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
         pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id );
