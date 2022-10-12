@@ -1160,6 +1160,7 @@ const pawn = (currentPositionXY, pawnColor) => {
                 moves.push(right);
             }
         }
+        //En passant calculation
         let controlObj = {piece: "pawn", color:"black", from: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]+2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]]), tookPiece: false};
         if(currentPositionXY[1] == 5 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)){
             moves.push(enPassantRight);
@@ -1192,6 +1193,7 @@ const pawn = (currentPositionXY, pawnColor) => {
                 moves.push(right);
             }
         }
+        //En passant calculation
         let controlObj = {piece: "pawn", color:"white", from: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]-2]), to: convertXYtoBoardCoordinates([currentPositionXY[0]+1,currentPositionXY[1]]), tookPiece: false};
         if(currentPositionXY[1] == 4 && JSON.stringify(history[history.length-1]) === JSON.stringify(controlObj)){
             moves.push(enPassantRight);

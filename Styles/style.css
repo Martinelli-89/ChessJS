@@ -277,6 +277,7 @@ body {
 .GameInfo #black {
   padding-top: 1vh;
   font-size: 1.2rem;
+  color: #201e1e;
 }
 .GameInfo #white .pieceWhiteTook {
   width: 100%;
