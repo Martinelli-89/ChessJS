@@ -40,7 +40,7 @@ As a challenge to test our understandment of JS, DOM manipulation and CSS during
 <p>The game is fully working. However the media queryes for different screen sizes, due to the lack of time, are minimal and needs to be improve for a better user experience on devices larger than a small phone.</p> 
 
 <h2>Future developement</h2>
-I would like to work on the following future when I will have the knowledge or the time:
+I would like to work on the following features when I will have the knowledge or the time:
 <ul>
     <li>Improve media queries;</li>
     <li>Add scores and clearly displayed whos turn it is;</li>
