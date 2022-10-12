@@ -45,8 +45,8 @@ I would like to work on the following future when I will have the knowledge or t
     <li>Improve media queries;</li>
     <li>Add scores and clearly displayed whos turn it is;</li>
     <li>Add a basic AI for single player</li>
-    <li>Add a feature to change the color of the board<li>
+    <li>Add a feature to change the color of the board</li>
 </ul>
 
 
-<h5>Thanks for checking game. If you find any bug I didn't notice or have any suggestion please reach out :)<h5>
+<h5>Thanks for checking my game. If you find any bug I didn't notice or have any suggestion please reach out :)<h5>
