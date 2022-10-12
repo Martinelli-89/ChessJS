@@ -972,6 +972,8 @@ const restartGame = () => {
         const selected = document.querySelector(".selected");
         selected.classList.remove("selected");
     }
+    const display = document.querySelector(".swapPiece");
+    display.innerText=""
 }
 //Currently only used to store moves in order to know when an en passant can be done
 const history = [];
@@ -1772,7 +1774,8 @@ const checkMate = (colorToCheck) => {
         }
     });
     if(possibleMoves.length<1) {
-        alert("checkmate");
+        const display = document.querySelector(".swapPiece");
+        display.innerText = "Checkmate";
     }
 }
 //Main function that fire after each piece has been clicked
