@@ -999,6 +999,9 @@ const renderSwap = (color) => {
     gameInfo.isSwapOn = true;
     const alt=["rock","bishop","knight","queen"];
     let i=0;
+    const instruction = document.createElement("p");
+    instruction.innerText="Promote pawn ";
+    swapArea.append(instruction);
     if(color == "white") {
         swapPiece[0].forEach( address => {
             const pieceToRender = document.createElement("img")
@@ -1036,6 +1039,8 @@ const pawnForNewPiece = (event) => {
     clearSwapArea.forEach( element => {
         element.parentNode.removeChild(element);
     })
+    const clearSwapTitle = document.querySelector(".swapPiece");
+    clearSwapTitle.removeChild(clearSwapTitle.fir);
 
     return;
 }
@@ -1558,18 +1563,23 @@ const renderTakenPieces = (piece, color) => {
     
     let renderingDiv;
     const pieceToRender = document.createElement("img");
+    const card = document.createElement("div");
     const pieceName = piece.charAt(0).toUpperCase() + piece.slice(1);
 
     if (color == "white") {
         renderingDiv = document.querySelector(".pieceBlackTook");
+        card.classList.add("cardWhite");
         pieceToRender.src = `./Resources/White${pieceName}.svg`;
         pieceToRender.classList.add("pieceTaken");
-        renderingDiv.append(pieceToRender);
+        card.append(pieceToRender)
+        renderingDiv.append(card);
     } else {
         renderingDiv = document.querySelector(".pieceWhiteTook");
+        card.classList.add("cardBlack");
         pieceToRender.src = `./Resources/Black${pieceName}.svg`;
         pieceToRender.classList.add("pieceTaken");
-        renderingDiv.append(pieceToRender);
+        card.append(pieceToRender)
+        renderingDiv.append(card);
     }
 }
 //Given a color find where that specific king is on the board. Use for check and checkmate

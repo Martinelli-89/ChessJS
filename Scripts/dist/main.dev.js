@@ -8,7 +8,449 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//Initial state of the board that can be copied when the game has to restart
+var resetBoard = {
+  a1: {
+    piece: "rock",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteRock.svg"
+  },
+  b1: {
+    piece: "knight",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteKnight.svg"
+  },
+  c1: {
+    piece: "bishop",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteBishop.svg"
+  },
+  d1: {
+    piece: "queen",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteQueen.svg"
+  },
+  e1: {
+    piece: "king",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteKing.svg"
+  },
+  f1: {
+    piece: "bishop",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteBishop.svg"
+  },
+  g1: {
+    piece: "knight",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteKnight.svg"
+  },
+  h1: {
+    piece: "rock",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhiteRock.svg"
+  },
+  a2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  b2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  c2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  d2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  e2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  f2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  g2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  h2: {
+    piece: "pawn",
+    color: "white",
+    hasMoved: false,
+    source: "./Resources/WhitePawn.svg"
+  },
+  a3: {
+    piece: "",
+    color: ""
+  },
+  b3: {
+    piece: "",
+    color: ""
+  },
+  c3: {
+    piece: "",
+    color: ""
+  },
+  d3: {
+    piece: "",
+    color: ""
+  },
+  e3: {
+    piece: "",
+    color: ""
+  },
+  f3: {
+    piece: "",
+    color: ""
+  },
+  g3: {
+    piece: "",
+    color: ""
+  },
+  h3: {
+    piece: "",
+    color: ""
+  },
+  a4: {
+    piece: "",
+    color: ""
+  },
+  b4: {
+    piece: "",
+    color: ""
+  },
+  c4: {
+    piece: "",
+    color: ""
+  },
+  d4: {
+    piece: "",
+    color: ""
+  },
+  e4: {
+    piece: "",
+    color: ""
+  },
+  f4: {
+    piece: "",
+    color: ""
+  },
+  g4: {
+    piece: "",
+    color: ""
+  },
+  h4: {
+    piece: "",
+    color: ""
+  },
+  a5: {
+    piece: "",
+    color: ""
+  },
+  b5: {
+    piece: "",
+    color: ""
+  },
+  c5: {
+    piece: "",
+    color: ""
+  },
+  d5: {
+    piece: "",
+    color: ""
+  },
+  e5: {
+    piece: "",
+    color: ""
+  },
+  f5: {
+    piece: "",
+    color: ""
+  },
+  g5: {
+    piece: "",
+    color: ""
+  },
+  h5: {
+    piece: "",
+    color: ""
+  },
+  a6: {
+    piece: "",
+    color: ""
+  },
+  b6: {
+    piece: "",
+    color: ""
+  },
+  c6: {
+    piece: "",
+    color: ""
+  },
+  d6: {
+    piece: "",
+    color: ""
+  },
+  e6: {
+    piece: "",
+    color: ""
+  },
+  f6: {
+    piece: "",
+    color: ""
+  },
+  g6: {
+    piece: "",
+    color: ""
+  },
+  h6: {
+    piece: "",
+    color: ""
+  },
+  a7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  b7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  c7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  d7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  e7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  f7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  g7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  h7: {
+    piece: "pawn",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackPawn.svg"
+  },
+  a8: {
+    piece: "rock",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackRock.svg"
+  },
+  b8: {
+    piece: "knight",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackKnight.svg"
+  },
+  c8: {
+    piece: "bishop",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackBishop.svg"
+  },
+  d8: {
+    piece: "queen",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackQueen.svg"
+  },
+  e8: {
+    piece: "king",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackKing.svg"
+  },
+  f8: {
+    piece: "bishop",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackBishop.svg"
+  },
+  g8: {
+    piece: "knight",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackKnight.svg"
+  },
+  h8: {
+    piece: "rock",
+    color: "black",
+    hasMoved: false,
+    source: "./Resources/BlackRock.svg"
+  },
+  //Move piece on empty tile
+  updateBoard: function updateBoard(tile1, tile2) {
+    this[tile2].piece = this[tile1].piece;
+    this[tile2].color = this[tile1].color;
+    this[tile2].source = this[tile1].source;
+    this[tile2].hasMoved = true;
+    this[tile1].piece = "";
+    this[tile1].color = "";
+    this[tile1].source = "";
+  },
+  //Used during control for check, during which every move for every piece needs to be run to calculate if it cause a check
+  updateBoardForCheck: function updateBoardForCheck(tile1, tile2) {
+    var colorTosave = this[tile2].color;
+    var pieceTosave = this[tile2].piece;
+    var sourceTosave = this[tile2].source;
+    this[tile2].piece = this[tile1].piece;
+    this[tile2].color = this[tile1].color;
+    this[tile2].source = this[tile1].source;
+    this[tile2].hasMoved = false;
+    this[tile1].piece = pieceTosave;
+    this[tile1].color = colorTosave;
+    this[tile1].source = sourceTosave;
+    this[tile1].hasMoved = false;
+  },
+  //Remove a piece from the board. Used for en passant and to promote pawn
+  removePiece: function removePiece(tile) {
+    this[tile].piece = "";
+    this[tile].color = "";
+    this[tile].source = "";
+    this[tile].hasMoved = "";
+  },
+  //Add piece on the board, used for pawn promotion
+  addPiece: function addPiece(piece, color, source, hasMoved, tile) {
+    this[tile].piece = piece;
+    this[tile].color = color;
+    this[tile].source = source;
+    this[tile].hasMoved = hasMoved;
+  },
+  swapPawn: function swapPawn(tile, source, piece) {
+    this[tile].source = source;
+    this[tile].piece = piece;
+  },
+  //Used to update board during a castling
+  castle: function castle(tile) {
+    if (tile == "g1") {
+      this.g1.color = "white";
+      this.g1.piece = "king";
+      this.g1.source = "./Resources/WhiteKing.svg";
+      this.g1.hasMoved = true;
+      this.f1.color = "white";
+      this.f1.piece = "rock";
+      this.f1.source = "./Resources/WhiteRock.svg";
+      this.f1.hasMoved = true;
+      this.e1.color = "";
+      this.e1.piece = "";
+      this.e1.source = "";
+      this.e1.hasMoved = true;
+      this.h1.color = "";
+      this.h1.piece = "";
+      this.h1.source = "";
+      this.h1.hasMoved = true;
+    } else if (tile == "c1") {
+      this.c1.color = "white";
+      this.c1.piece = "king";
+      this.c1.source = "./Resources/WhiteKing.svg";
+      this.c1.hasMoved = true;
+      this.d1.color = "white";
+      this.d1.piece = "rock";
+      this.d1.source = "./Resources/WhiteRock.svg";
+      this.d1.hasMoved = true;
+      this.e1.color = "";
+      this.e1.piece = "";
+      this.e1.source = "";
+      this.e1.hasMoved = true;
+      this.a1.color = "";
+      this.a1.piece = "";
+      this.a1.source = "";
+      this.a1.hasMoved = true;
+    } else if (tile == "g8") {
+      this.g8.color = "black";
+      this.g8.piece = "king";
+      this.g8.source = "./Resources/BlackKing.svg";
+      this.g8.hasMoved = true;
+      this.f8.color = "black";
+      this.f8.piece = "rock";
+      this.f8.source = "./Resources/BlackRock.svg";
+      this.f8.hasMoved = true;
+      this.e8.color = "";
+      this.e8.piece = "";
+      this.e8.source = "";
+      this.e8.hasMoved = true;
+      this.h8.color = "";
+      this.h8.piece = "";
+      this.h8.source = "";
+      this.h8.hasMoved = true;
+    } else {
+      this.c8.color = "black";
+      this.c8.piece = "king";
+      this.c8.source = "./Resources/BlackKing.svg";
+      this.c8.hasMoved = true;
+      this.d8.color = "black";
+      this.d8.piece = "rock";
+      this.d8.source = "./Resources/BlackRock.svg";
+      this.d8.hasMoved = true;
+      this.e8.color = "";
+      this.e8.piece = "";
+      this.e8.source = "";
+      this.e8.hasMoved = true;
+      this.a8.color = "";
+      this.a8.piece = "";
+      this.a8.source = "";
+      this.a8.hasMoved = true;
+    }
+  }
+}; //Board used for the game
 
 var board = {
   a1: {
@@ -440,14 +882,130 @@ var board = {
       this.a8.hasMoved = true;
     }
   }
-};
-var swapPiece = [["./Resources/WhiteRock.svg", "./Resources/WhiteBishop.svg", "./Resources/WhiteKnight.svg", "./Resources/WhiteQueen.svg"], ["./Resources/BlackRock.svg", "./Resources/BlackBishop.svg", "./Resources/BlackKnight.svg", "./Resources/BlackQueen.svg"]];
+}; //As per name
+
+var restartGame = function restartGame() {
+  board = _objectSpread({}, resetBoard);
+  board = _objectSpread({}, board, {
+    a1: _objectSpread({}, board.a1),
+    b1: _objectSpread({}, board.b1),
+    c1: _objectSpread({}, board.c1),
+    d1: _objectSpread({}, board.d1),
+    e1: _objectSpread({}, board.e1),
+    f1: _objectSpread({}, board.f1),
+    g1: _objectSpread({}, board.g1),
+    h1: _objectSpread({}, board.h1),
+    a2: _objectSpread({}, board.a2),
+    b2: _objectSpread({}, board.b2),
+    c2: _objectSpread({}, board.c2),
+    d2: _objectSpread({}, board.d2),
+    e2: _objectSpread({}, board.e2),
+    f2: _objectSpread({}, board.f2),
+    g2: _objectSpread({}, board.g2),
+    h2: _objectSpread({}, board.h2),
+    a3: _objectSpread({}, board.a3),
+    b3: _objectSpread({}, board.b3),
+    c3: _objectSpread({}, board.c3),
+    d3: _objectSpread({}, board.d3),
+    e3: _objectSpread({}, board.e3),
+    f3: _objectSpread({}, board.f3),
+    g3: _objectSpread({}, board.g3),
+    h3: _objectSpread({}, board.h3),
+    a4: _objectSpread({}, board.a4),
+    b4: _objectSpread({}, board.b4),
+    c4: _objectSpread({}, board.c4),
+    d4: _objectSpread({}, board.d4),
+    e4: _objectSpread({}, board.e4),
+    f4: _objectSpread({}, board.f4),
+    g4: _objectSpread({}, board.g4),
+    h4: _objectSpread({}, board.h4),
+    a5: _objectSpread({}, board.a5),
+    b5: _objectSpread({}, board.b5),
+    c5: _objectSpread({}, board.c5),
+    d5: _objectSpread({}, board.d5),
+    e5: _objectSpread({}, board.e5),
+    f5: _objectSpread({}, board.f5),
+    g5: _objectSpread({}, board.g5),
+    h5: _objectSpread({}, board.h5),
+    a6: _objectSpread({}, board.a6),
+    b6: _objectSpread({}, board.b6),
+    c6: _objectSpread({}, board.c6),
+    d6: _objectSpread({}, board.d6),
+    e6: _objectSpread({}, board.e6),
+    f6: _objectSpread({}, board.f6),
+    g6: _objectSpread({}, board.g6),
+    h6: _objectSpread({}, board.h6),
+    a7: _objectSpread({}, board.a7),
+    b7: _objectSpread({}, board.b7),
+    c7: _objectSpread({}, board.c7),
+    d7: _objectSpread({}, board.d7),
+    e7: _objectSpread({}, board.e7),
+    f7: _objectSpread({}, board.f7),
+    g7: _objectSpread({}, board.g7),
+    h7: _objectSpread({}, board.h7),
+    a8: _objectSpread({}, board.a8),
+    b8: _objectSpread({}, board.b8),
+    c8: _objectSpread({}, board.c8),
+    e8: _objectSpread({}, board.e8),
+    d8: _objectSpread({}, board.d8),
+    f8: _objectSpread({}, board.f8),
+    g8: _objectSpread({}, board.g8),
+    h8: _objectSpread({}, board.h8)
+  });
+  clearBoard();
+  renderBoard();
+  gameInfo.turn = "white";
+  var pieceWhiteTook = document.querySelector(".pieceWhiteTook");
+  pieceWhiteTook.innerHTML = "";
+  var pieceBlackTook = document.querySelector(".pieceBlackTook");
+  pieceBlackTook.innerHTML = "";
+
+  if (document.querySelector(".checked")) {
+    var _check = document.querySelector(".checked");
+
+    _check.classList.remove("checked");
+  }
+
+  if (document.querySelector(".active")) {
+    var active = document.querySelectorAll(".active");
+    active.forEach(function (element) {
+      element.classList.remove("active");
+    });
+  }
+
+  if (document.querySelector(".selected")) {
+    var selected = document.querySelector(".selected");
+    selected.classList.remove("selected");
+  }
+
+  var display = document.querySelector(".swapPiece");
+  display.innerText = "";
+}; //Currently only used to store moves in order to know when an en passant can be done
+
+
+var history = []; //Add each move to the history array. Again atm only used for en passant
+
+var recordHistory = function recordHistory(piece, color, tileTo, tileFrom, wasPieceTaken) {
+  history.push({
+    piece: piece,
+    color: color,
+    from: tileFrom,
+    to: tileTo,
+    tookPiece: wasPieceTaken
+  });
+}; //Used to swap image source when a pawn is promote
+
+
+var swapPiece = [["./Resources/WhiteRock.svg", "./Resources/WhiteBishop.svg", "./Resources/WhiteKnight.svg", "./Resources/WhiteQueen.svg"], ["./Resources/BlackRock.svg", "./Resources/BlackBishop.svg", "./Resources/BlackKnight.svg", "./Resources/BlackQueen.svg"]]; //Display which piece was taken by a specific player 
 
 var renderSwap = function renderSwap(color) {
   var swapArea = document.querySelector(".swapPiece");
   gameInfo.isSwapOn = true;
   var alt = ["rock", "bishop", "knight", "queen"];
   var i = 0;
+  var instruction = document.createElement("p");
+  instruction.innerText = "Promote pawn ";
+  swapArea.append(instruction);
 
   if (color == "white") {
     swapPiece[0].forEach(function (address) {
@@ -470,7 +1028,8 @@ var renderSwap = function renderSwap(color) {
       i++;
     });
   }
-};
+}; //Upgrade pawn when it get to the end of the board
+
 
 var pawnForNewPiece = function pawnForNewPiece(event) {
   board.swapPawn(document.querySelector(".swapHere").id, event.target.src, event.target.alt);
@@ -488,8 +1047,11 @@ var pawnForNewPiece = function pawnForNewPiece(event) {
   clearSwapArea.forEach(function (element) {
     element.parentNode.removeChild(element);
   });
+  var clearSwapTitle = document.querySelector(".swapPiece");
+  clearSwapTitle.removeChild(clearSwapTitle.fir);
   return;
-};
+}; //Used to calculate turn and stopping game when a pawn reach the end and has to be promoted
+
 
 var gameInfo = {
   turn: "white",
@@ -503,7 +1065,7 @@ var gameInfo = {
       this.turn = "white";
     }
   }
-};
+}; //Iterate over the board object and render it in the HTML grid
 
 var renderBoard = function renderBoard() {
   var tiles = document.querySelectorAll(".tile");
@@ -517,7 +1079,8 @@ var renderBoard = function renderBoard() {
       tile.append(pieceToRender);
     }
   });
-};
+}; //Clear the HTML grid before a render is necessary
+
 
 var clearBoard = function clearBoard() {
   var tiles = document.querySelectorAll(".tile");
@@ -528,7 +1091,8 @@ var clearBoard = function clearBoard() {
   });
 };
 
-renderBoard();
+renderBoard(); //Initialize board to start game
+//Use to convert the board cordinate (a2,h3, ...) to XY coordinates to calculate pieces movements more easily
 
 var convertToXY = function convertToXY(piecePosition) {
   var y = parseInt(piecePosition.charAt(1));
@@ -558,7 +1122,8 @@ var convertToXY = function convertToXY(piecePosition) {
     case "h":
       return [8, y];
   }
-};
+}; //Convert XY to board coordinates to be able to render it on the page easily
+
 
 var convertXYtoBoardCoordinates = function convertXYtoBoardCoordinates(XYPositions) {
   var y = XYPositions[1];
@@ -588,7 +1153,8 @@ var convertXYtoBoardCoordinates = function convertXYtoBoardCoordinates(XYPositio
     case 8:
       return "h" + y;
   }
-};
+}; //Store the standard pawn moves
+
 
 var pawn = function pawn(currentPositionXY, pawnColor) {
   var moves = [];
@@ -597,6 +1163,8 @@ var pawn = function pawn(currentPositionXY, pawnColor) {
     var left = [currentPositionXY[0] - 1, currentPositionXY[1] + 1];
     var center = [currentPositionXY[0], currentPositionXY[1] + 1];
     var right = [currentPositionXY[0] + 1, currentPositionXY[1] + 1];
+    var enPassantRight = [currentPositionXY[0] + 1, currentPositionXY[1] + 1];
+    var enPassantLeft = [currentPositionXY[0] - 1, currentPositionXY[1] + 1];
 
     if (left[0] > 0 && left[1] < 9) {
       if (board[convertXYtoBoardCoordinates(left)].color == "black") {
@@ -614,6 +1182,31 @@ var pawn = function pawn(currentPositionXY, pawnColor) {
       if (board[convertXYtoBoardCoordinates(right)].color == "black") {
         moves.push(right);
       }
+    } //En passant calculation
+
+
+    var controlObj = {
+      piece: "pawn",
+      color: "black",
+      from: convertXYtoBoardCoordinates([currentPositionXY[0] + 1, currentPositionXY[1] + 2]),
+      to: convertXYtoBoardCoordinates([currentPositionXY[0] + 1, currentPositionXY[1]]),
+      tookPiece: false
+    };
+
+    if (currentPositionXY[1] == 5 && JSON.stringify(history[history.length - 1]) === JSON.stringify(controlObj)) {
+      moves.push(enPassantRight);
+    }
+
+    controlObj = {
+      piece: "pawn",
+      color: "black",
+      from: convertXYtoBoardCoordinates([currentPositionXY[0] - 1, currentPositionXY[1] + 2]),
+      to: convertXYtoBoardCoordinates([currentPositionXY[0] - 1, currentPositionXY[1]]),
+      tookPiece: false
+    };
+
+    if (currentPositionXY[1] == 5 && JSON.stringify(history[history.length - 1]) === JSON.stringify(controlObj)) {
+      moves.push(enPassantLeft);
     }
 
     return moves;
@@ -621,6 +1214,8 @@ var pawn = function pawn(currentPositionXY, pawnColor) {
     var _left = [currentPositionXY[0] - 1, currentPositionXY[1] - 1];
     var _center = [currentPositionXY[0], currentPositionXY[1] - 1];
     var _right = [currentPositionXY[0] + 1, currentPositionXY[1] - 1];
+    var _enPassantRight = [currentPositionXY[0] + 1, currentPositionXY[1] - 1];
+    var _enPassantLeft = [currentPositionXY[0] - 1, currentPositionXY[1] - 1];
 
     if (_left[0] > 0 && _left[1] > 0) {
       if (board[convertXYtoBoardCoordinates(_left)].color == "white") {
@@ -638,11 +1233,37 @@ var pawn = function pawn(currentPositionXY, pawnColor) {
       if (board[convertXYtoBoardCoordinates(_right)].color == "white") {
         moves.push(_right);
       }
+    } //En passant calculation
+
+
+    var _controlObj = {
+      piece: "pawn",
+      color: "white",
+      from: convertXYtoBoardCoordinates([currentPositionXY[0] + 1, currentPositionXY[1] - 2]),
+      to: convertXYtoBoardCoordinates([currentPositionXY[0] + 1, currentPositionXY[1]]),
+      tookPiece: false
+    };
+
+    if (currentPositionXY[1] == 4 && JSON.stringify(history[history.length - 1]) === JSON.stringify(_controlObj)) {
+      moves.push(_enPassantRight);
+    }
+
+    _controlObj = {
+      piece: "pawn",
+      color: "white",
+      from: convertXYtoBoardCoordinates([currentPositionXY[0] - 1, currentPositionXY[1] - 2]),
+      to: convertXYtoBoardCoordinates([currentPositionXY[0] - 1, currentPositionXY[1]]),
+      tookPiece: false
+    };
+
+    if (currentPositionXY[1] == 4 && JSON.stringify(history[history.length - 1]) === JSON.stringify(_controlObj)) {
+      moves.push(_enPassantLeft);
     }
 
     return moves;
   }
-};
+}; //Calculate which of the standard pawn moves can be performed according to the current state of the board
+
 
 var movePawn = function movePawn(currentPosition, pawnColor) {
   var XYposition = convertToXY(currentPosition);
@@ -671,7 +1292,8 @@ var movePawn = function movePawn(currentPosition, pawnColor) {
   }
 
   return allowedMoves;
-};
+}; //Standard moves of the knigh
+
 
 var knight = function knight(currentPositionXY) {
   var moves = [[currentPositionXY[0] + 1, currentPositionXY[1] + 2], [currentPositionXY[0] + 2, currentPositionXY[1] + 1], [currentPositionXY[0] + 2, currentPositionXY[1] - 1], [currentPositionXY[0] + 1, currentPositionXY[1] - 2], [currentPositionXY[0] - 1, currentPositionXY[1] - 2], [currentPositionXY[0] - 2, currentPositionXY[1] - 1], [currentPositionXY[0] - 2, currentPositionXY[1] + 1], [currentPositionXY[0] - 1, currentPositionXY[1] + 2]];
@@ -679,7 +1301,8 @@ var knight = function knight(currentPositionXY) {
     return move[0] > 0 && move[0] < 9 && move[1] > 0 && move[1] < 9;
   });
   return regularMoves;
-};
+}; //Standard moves for the king 
+
 
 var king = function king(currentPositionXY) {
   var moves = [[currentPositionXY[0], currentPositionXY[1] + 1], [currentPositionXY[0] + 1, currentPositionXY[1] + 1], [currentPositionXY[0] + 1, currentPositionXY[1]], [currentPositionXY[0] + 1, currentPositionXY[1] - 1], [currentPositionXY[0], currentPositionXY[1] - 1], [currentPositionXY[0] - 1, currentPositionXY[1] - 1], [currentPositionXY[0] - 1, currentPositionXY[1]], [currentPositionXY[0] - 1, currentPositionXY[1] + 1]];
@@ -687,7 +1310,8 @@ var king = function king(currentPositionXY) {
     return move[0] > 0 && move[0] < 9 && move[1] > 0 && move[1] < 9;
   });
   return regularMoves;
-};
+}; //Given a piece color calculate all the possible moves that a player can perform. Use for check and checkmate controls
+
 
 var findOpponentAllPossibleMoves = function findOpponentAllPossibleMoves(color) {
   if (color == "black") {
@@ -745,7 +1369,8 @@ var findOpponentAllPossibleMoves = function findOpponentAllPossibleMoves(color) 
     });
     return blackPossibleMoves;
   }
-};
+}; //Calculate king moves according to current board state
+
 
 var moveKing = function moveKing(currentPosition, pawnColor) {
   var XYposition = convertToXY(currentPosition);
@@ -793,7 +1418,8 @@ var moveKing = function moveKing(currentPosition, pawnColor) {
     return board[coordinate].color != pawnColor;
   });
   return allowedMoves;
-};
+}; //Calculate knight moves according to current board state
+
 
 var moveKnight = function moveKnight(currentPosition, pawnColor) {
   var XYposition = convertToXY(currentPosition);
@@ -805,7 +1431,8 @@ var moveKnight = function moveKnight(currentPosition, pawnColor) {
     return board[coordinate].color != pawnColor;
   });
   return allowedMoves;
-};
+}; //Store bishop stamdard moves and calculate which ones are regular according to current board state
+
 
 var moveBishop = function moveBishop(currentPosition, pieceColor) {
   var possibleMoves = [];
@@ -898,7 +1525,8 @@ var moveBishop = function moveBishop(currentPosition, pieceColor) {
   }
 
   return possibleMoves;
-};
+}; //Store rock stamdard moves and calculate which ones are regular according to current board state
+
 
 var moveRock = function moveRock(currentPosition, pieceColor) {
   var possibleMoves = [];
@@ -991,13 +1619,15 @@ var moveRock = function moveRock(currentPosition, pieceColor) {
   }
 
   return possibleMoves;
-};
+}; //Just calls moveRock and moveBishop to calculate regular moves
+
 
 var moveQueen = function moveQueen(currentPosition, pieceColor) {
   var moves = moveBishop(currentPosition, pieceColor);
   var moves2 = moveRock(currentPosition, pieceColor);
   return moves.concat(moves2);
-};
+}; //When the regular moves for a selected piece are calculate the function display them on the board
+
 
 var renderMoves = function renderMoves(possibleMoves) {
   var tiles = document.querySelectorAll(".tile");
@@ -1008,7 +1638,8 @@ var renderMoves = function renderMoves(possibleMoves) {
       tiles[i].classList.add("active");
     }
   }
-};
+}; //When a piece has moved or another one is selected clear the previous piece moves which were rendered on the board
+
 
 var clearActiveSelectedTiles = function clearActiveSelectedTiles() {
   var activeTiles = document.querySelectorAll(".active");
@@ -1017,25 +1648,37 @@ var clearActiveSelectedTiles = function clearActiveSelectedTiles() {
     return tile.classList.remove("active");
   });
   selectedPiece.classList.remove("selected");
-};
+
+  if (document.querySelector(".castleHere")) {
+    var castle = document.querySelector(".castleHere");
+    castle.classList.remove("castleHere");
+  }
+}; //Display which pieces were taken my a player in the player section
+
 
 var renderTakenPieces = function renderTakenPieces(piece, color) {
   var renderingDiv;
   var pieceToRender = document.createElement("img");
+  var card = document.createElement("div");
   var pieceName = piece.charAt(0).toUpperCase() + piece.slice(1);
 
   if (color == "white") {
     renderingDiv = document.querySelector(".pieceBlackTook");
+    card.classList.add("cardWhite");
     pieceToRender.src = "./Resources/White".concat(pieceName, ".svg");
     pieceToRender.classList.add("pieceTaken");
-    renderingDiv.append(pieceToRender);
+    card.append(pieceToRender);
+    renderingDiv.append(card);
   } else {
     renderingDiv = document.querySelector(".pieceWhiteTook");
+    card.classList.add("cardBlack");
     pieceToRender.src = "./Resources/Black".concat(pieceName, ".svg");
     pieceToRender.classList.add("pieceTaken");
-    renderingDiv.append(pieceToRender);
+    card.append(pieceToRender);
+    renderingDiv.append(card);
   }
-};
+}; //Given a color find where that specific king is on the board. Use for check and checkmate
+
 
 var findKingPosition = function findKingPosition(color) {
   for (key in board) {
@@ -1043,7 +1686,8 @@ var findKingPosition = function findKingPosition(color) {
       return key;
     }
   }
-};
+}; //Given a color find all the pieces of that color on the board. Used to calculate check, checkmate and avoid that a piece move if it cause check
+
 
 var findPiecesOfSpecificColor = function findPiecesOfSpecificColor(color) {
   var piecesArr = [];
@@ -1055,7 +1699,8 @@ var findPiecesOfSpecificColor = function findPiecesOfSpecificColor(color) {
   }
 
   return piecesArr;
-};
+}; //Calculate if a player is another check after the previous player has moved
+
 
 var check = function check(colorThatMovesLast) {
   if (colorThatMovesLast == "white") {
@@ -1127,7 +1772,8 @@ var check = function check(colorThatMovesLast) {
       return true;
     }
   }
-};
+}; //Avoid a piece can be moved if it cause the player king to be checked
+
 
 var checkIfMoved = function checkIfMoved(currentPosition, colorPiece, arrayOfMoves) {
   var movesThatCauseCheck = [];
@@ -1175,7 +1821,8 @@ var checkIfMoved = function checkIfMoved(currentPosition, colorPiece, arrayOfMov
   }
 
   return movesToCheck;
-};
+}; //Cancel the rendered check if it has been stopped
+
 
 var clearChecked = function clearChecked() {
   var checkedKing = document.querySelector(".checked");
@@ -1186,86 +1833,8 @@ var clearChecked = function clearChecked() {
 
   checkedKing.classList.remove("checked");
   return;
-};
+}; //Calculate if a pawn reached the end of the board
 
-var checkmate = function checkmate(pieceThatMovedLast) {
-  var movesThatAvoidCheck = [];
-
-  if (pieceThatMovedLast == "white") {
-    var blackPiecesPositions = findPiecesOfSpecificColor("black");
-    blackPiecesPositions.forEach(function (position) {
-      var boardPosition = Object.keys(position)[0];
-      console.log(boardPosition);
-      var piece = Object.values(position)[0];
-
-      switch (piece) {
-        case "pawn":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", movePawn(position, "black")));
-          break;
-
-        case "rock":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveRock(boardPosition, "black")));
-          break;
-
-        case "knight":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKnight(boardPosition, "black")));
-          break;
-
-        case "bishop":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveBishop(boardPosition, "black")));
-          break;
-
-        case "queen":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveQueen(boardPosition, "black")));
-          break;
-
-        case "king":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "black", moveKing(boardPosition, "black")));
-          break;
-      }
-    });
-
-    if (movesThatAvoidCheck.length < 1) {
-      console.log("checkmate");
-    }
-  } else {
-    var whitePiecesPositions = findPiecesOfSpecificColor("white");
-    whitePiecesPositions.forEach(function (position) {
-      var boardPosition = Object.keys(position)[0];
-      var piece = Object.values(position)[0];
-
-      switch (piece) {
-        case "pawn":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", movePawn(boardPosition, "white")));
-          break;
-
-        case "rock":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveRock(boardPosition, "white")));
-          break;
-
-        case "knight":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKnight(boardPosition, "white")));
-          break;
-
-        case "bishop":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveBishop(boardPosition, "white")));
-          break;
-
-        case "queen":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveQueen(boardPosition, "white")));
-          break;
-
-        case "king":
-          movesThatAvoidCheck.concat(checkIfMoved(boardPosition, "white", moveKing(boardPosition, "white")));
-          break;
-      }
-    });
-
-    if (movesThatAvoidCheck.length < 1) {
-      console.log("checkmate");
-    }
-  }
-};
 
 var pawnEndline = function pawnEndline(piece, color, movedOnTile) {
   if (piece != "pawn") {
@@ -1287,7 +1856,53 @@ var pawnEndline = function pawnEndline(piece, color, movedOnTile) {
     renderSwap("black");
     return;
   }
-};
+}; //Calculate checkmate
+
+
+var checkMate = function checkMate(colorToCheck) {
+  var allPieces = findPiecesOfSpecificColor(colorToCheck);
+  var possibleMoves = [];
+  var temp;
+  allPieces.forEach(function (piecePosition) {
+    switch (Object.values(piecePosition)[0]) {
+      case "pawn":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, movePawn(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+
+      case "rock":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveRock(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+
+      case "bishop":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveBishop(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+
+      case "knight":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveKnight(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+
+      case "queen":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveQueen(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+
+      case "king":
+        temp = checkIfMoved(Object.keys(piecePosition)[0], colorToCheck, moveKing(Object.keys(piecePosition)[0], colorToCheck));
+        possibleMoves = possibleMoves.concat(temp);
+        break;
+    }
+  });
+
+  if (possibleMoves.length < 1) {
+    var display = document.querySelector(".swapPiece");
+    display.innerText = "Checkmate";
+  }
+}; //Main function that fire after each piece has been clicked
+
 
 var pieceClicled = function pieceClicled(event) {
   if (gameInfo.isSwapOn == true) {
@@ -1297,43 +1912,99 @@ var pieceClicled = function pieceClicled(event) {
 
   if (event.target.classList.contains("castleHere")) {
     var colorThatMoved = board[document.querySelector(".selected").id].color;
+    recordHistory(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
     board.castle(event.target.id);
     clearBoard();
     renderBoard();
-    clearActiveSelectedTiles();
     event.target.classList.remove("castleHere");
     gameInfo.updateTurn();
     clearChecked();
     check(colorThatMoved);
+
+    if (colorThatMoved == "white") {
+      checkMate("black");
+    } else {
+      checkMate("white");
+    }
+
+    clearActiveSelectedTiles();
     return;
-  } //Move on empty tile
+  } //En passant
+
+
+  if (event.target.classList.contains("active") && board[document.querySelector(".selected").id].piece == "pawn" && convertToXY(event.target.id)[0] != convertToXY(document.querySelector(".selected").id)[0]) {
+    var _colorThatMoved = board[document.querySelector(".selected").id].color;
+    recordHistory(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
+    pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id);
+    board.updateBoard(document.querySelector(".selected").id, event.target.id);
+
+    if (_colorThatMoved == "white") {
+      var targetTile = convertToXY(event.target.id);
+      board.removePiece(convertXYtoBoardCoordinates([targetTile[0], targetTile[1] - 1]));
+    } else {
+      var _targetTile = convertToXY(event.target.id);
+
+      board.removePiece(convertXYtoBoardCoordinates([_targetTile[0], _targetTile[1] + 1]));
+    }
+
+    clearBoard();
+    renderBoard();
+    gameInfo.updateTurn();
+    clearChecked();
+    check(_colorThatMoved);
+
+    if (_colorThatMoved == "white") {
+      checkMate("black");
+    } else {
+      checkMate("white");
+    }
+
+    clearActiveSelectedTiles();
+    return;
+  } //Moved on empty tile
 
 
   if (event.target.classList.contains("active")) {
-    var _colorThatMoved = board[document.querySelector(".selected").id].color;
+    var _colorThatMoved2 = board[document.querySelector(".selected").id].color;
+    recordHistory(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id, document.querySelector(".selected").id, false);
     pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.id);
     board.updateBoard(document.querySelector(".selected").id, event.target.id);
     clearBoard();
     renderBoard();
-    clearActiveSelectedTiles();
     gameInfo.updateTurn();
     clearChecked();
-    check(_colorThatMoved);
+    check(_colorThatMoved2);
+
+    if (_colorThatMoved2 == "white") {
+      checkMate("black");
+    } else {
+      checkMate("white");
+    }
+
+    clearActiveSelectedTiles();
     return;
   } //Move piece and take another piece
 
 
   if (event.target.parentElement.classList.contains("active")) {
+    recordHistory(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.parentElement.id, document.querySelector(".selected").id, true);
     pawnEndline(board[document.querySelector(".selected").id].piece, board[document.querySelector(".selected").id].color, event.target.parentElement.id);
-    var _colorThatMoved2 = board[document.querySelector(".selected").id].color;
+    var _colorThatMoved3 = board[document.querySelector(".selected").id].color;
     renderTakenPieces(board[event.target.parentElement.id].piece, board[event.target.parentElement.id].color);
     board.updateBoard(document.querySelector(".selected").id, event.target.parentElement.id);
     clearBoard();
     renderBoard();
-    clearActiveSelectedTiles();
     gameInfo.updateTurn();
     clearChecked();
-    check(_colorThatMoved2);
+    check(_colorThatMoved3);
+
+    if (_colorThatMoved3 == "white") {
+      checkMate("black");
+    } else {
+      checkMate("white");
+    }
+
+    clearActiveSelectedTiles();
     return;
   } //Clear tiles that were made active with previous click
 
@@ -1386,10 +2057,15 @@ var pieceClicled = function pieceClicled(event) {
 
   var movesThatDontCauseCheck = checkIfMoved(currentPosition, pieceColor, moves);
   renderMoves(movesThatDontCauseCheck);
-};
+}; //Attach event listenr to every tile on the board
+
 
 var tiles = document.querySelectorAll(".tile");
 
 for (var i = 0; i < tiles.length; i++) {
   tiles[i].addEventListener("click", pieceClicled);
-}
+} //Restart button
+
+
+var restart = document.querySelector(".restart");
+restart.addEventListener("click", restartGame);
